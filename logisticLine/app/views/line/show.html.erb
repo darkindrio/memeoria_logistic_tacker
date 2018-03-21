@@ -1,0 +1,58 @@
+<div class = container>
+  <h1> Informacion de la linea </h1>
+  <div class = "row">
+
+    <div class = "col-md-4">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Nombre linea</h3>
+        </div>
+        <div class="panel-body">
+          <div class = "well">
+            <%= truncate("Quisque consequat gravida mollis. Etiam iaculis eleifend
+                  tempus. Nam diam orci, rhoncus id mauris sit amet, dictum egestas nisi. Nulla ex ligula, auctor ac ex at,
+                  aliquam pretium magna. Integer finibus urna et velit gravida, non pharetra dui feugiat. In sodales sagittis sagittis.
+                  Mauris venenatis sapien at massa pellentesque, vitae vestibulum nunc suscipit. Nunc tincidunt ante nec sem condimentum,
+                  sed sodales velit vestibulum. Curabitur scelerisque lacus nec leo congue, non posuere magna venenatis. Suspendisse potenti.", length: 300) %>
+          </div>
+          <p>
+            <strong>Numero actores: </strong> 5
+          </p>
+          <p>
+            <strong>Numero procesos:</strong> 5
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class = "col-md-4"></div>
+    <div class = "col-md-4"></div>
+  </div>
+
+  <h1>Etapas de la linea</h1>
+  <div class = "row">
+    <% @line.stages.each do |stage| %>
+        <div class = "col-md-4">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title"><%= stage.name %></h3>
+            </div>
+            <div class="panel-body">
+              <div class = "well" >
+                <%= truncate(stage.description, length: 250) %>
+              </div>
+              <p>
+                <strong>Numero actores: </strong> <%= stage.n_actors %>
+              </p>
+              <p>
+                <strong>Numero procesos:</strong> <%= stage.n_process %>
+              </p>
+            </div>
+            <div class="panel-footer">
+              <%= link_to 'Ver etapa', stage,  class: "btn btn-info" %>
+            </div>
+          </div>
+        </div>
+    <%end%>
+  </div>
+
+</div>

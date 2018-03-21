@@ -1,0 +1,77 @@
+<div class = "container">
+  <h1> Informacion de la estapa </h1>
+  <div class = "row">
+    <div class = "col-md-12">
+      <div class="panel panel-default">
+        <div class="panel-heading clearfix">
+          <h3 class="panel-title pull-left" style="padding-top: 7.5px;"><%= @stage.name %></h3>
+          <div class="btn-group pull-right">
+            <td>
+              <%= link_to  "www", class: "btn btn-primary" do %>
+                  <i class="glyphicon glyphicon-pencil"></i> Editar
+              <%end %>
+            </td>
+            <td><%= link_to 'X', "www", class: "btn btn-danger",method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </div>
+        </div>
+        <div class="panel-body">
+          <div class = "well">
+           <p>
+             <%= @stage.description %>
+           </p>
+          </div>
+          <div class = "row">
+            <div class = "col-md-4">
+              <p>
+                <strong>Numero actores: </strong> <%= @stage.n_actors %>
+              </p>
+              <p>
+                <strong>Numero procesos:</strong> <%= @stage.n_process %>
+              </p>
+            </div>
+            <div class = "col-md-4">
+              <p>
+                <strong>Estado actual: </strong> <span class="label label-danger">Danger</span>
+              </p>
+            </div>
+            <div class = "col-md-4">
+              <p>
+                <strong>Numero actores: </strong> 5
+              </p>
+              <p>
+                <strong>Numero procesos:</strong> 5
+              </p>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <h1> Estados </h1>
+  <div class = "row">
+    <% @stage.states.each do |state| %>
+        <div class = "col-md-4">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title"><%= state.name %></h3>
+            </div>
+            <div class="panel-body">
+              <div class = "well" >
+                <%= truncate(state.description, length: 250) %>
+              </div>
+              <p>
+                <strong>Numero actores: </strong> <%= state.n_actors %>
+              </p>
+              <p>
+                <strong>Numero procesos:</strong> <%= state.n_sub_process %>
+              </p>
+            </div>
+
+          </div>
+        </div>
+    <%end%>
+  </div>
+</div>
