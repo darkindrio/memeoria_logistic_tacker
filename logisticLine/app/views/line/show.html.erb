@@ -1,31 +1,48 @@
 <div class = container>
   <h1> Informacion de la linea </h1>
   <div class = "row">
-
-    <div class = "col-md-4">
+    <div class = "col-md-12">
       <div class="panel panel-default">
-        <div class="panel-heading">
-          <h3 class="panel-title">Nombre linea</h3>
+        <div class="panel-heading clearfix">
+          <h3 class="panel-title pull-left" style="padding-top: 7.5px;"><%= @line.name %></h3>
+          <div class="btn-group pull-right">
+            <td>
+              <%= link_to  "www", class: "btn btn-primary" do %>
+                  <i class="glyphicon glyphicon-pencil"></i> Editar
+              <%end %>
+            </td>
+            <td><%= link_to 'X', "www", class: "btn btn-danger",method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </div>
         </div>
         <div class="panel-body">
           <div class = "well">
-            <%= truncate("Quisque consequat gravida mollis. Etiam iaculis eleifend
-                  tempus. Nam diam orci, rhoncus id mauris sit amet, dictum egestas nisi. Nulla ex ligula, auctor ac ex at,
-                  aliquam pretium magna. Integer finibus urna et velit gravida, non pharetra dui feugiat. In sodales sagittis sagittis.
-                  Mauris venenatis sapien at massa pellentesque, vitae vestibulum nunc suscipit. Nunc tincidunt ante nec sem condimentum,
-                  sed sodales velit vestibulum. Curabitur scelerisque lacus nec leo congue, non posuere magna venenatis. Suspendisse potenti.", length: 300) %>
+            <p>
+              <%= @line.description %>
+            </p>
           </div>
-          <p>
-            <strong>Numero actores: </strong> 5
-          </p>
-          <p>
-            <strong>Numero procesos:</strong> 5
-          </p>
+          <div class = "row">
+            <div class = "col-md-4">
+              <p>
+                <strong>Numero actores: </strong> <%= @line.n_actors %>
+              </p>
+              <p>
+                <strong>Numero Etapas:</strong> <%= @line.n_stages %>
+              </p>
+            </div>
+            <div class = "col-md-4">
+              <p>
+                <strong>Numero actores: </strong> 5
+              </p>
+              <p>
+                <strong>Numero procesos:</strong> 5
+              </p>
+            </div>
+
+          </div>
+
         </div>
       </div>
     </div>
-    <div class = "col-md-4"></div>
-    <div class = "col-md-4"></div>
   </div>
 
   <h1>Etapas de la linea</h1>

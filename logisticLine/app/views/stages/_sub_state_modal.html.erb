@@ -1,0 +1,37 @@
+<div class="modal fade" id=<%="sub_states_modal_#{modal_counter}"%> role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title"><%= state.name %></h4>
+      </div>
+      <div class="modal-body">
+        <% sub_states = state.get_state_machine_name(state.name) %>
+        <% sub_states.each do |sub_state| %>
+            <div class = "row">
+              <div class = "col-md-3"></div>
+              <div class = "col-md-6">
+                <div class="panel panel-default" style="margin-bottom: 0px;text-align:center;">
+                  <% if state.sub_state == sub_state.to_s %>
+                    <div class="panel-body" style = "background:#DDF0D7;">
+                      <%= state.state_s(sub_state.to_s) %>
+                    </div>
+                  <% else %>
+                      <div class="panel-body" style="text-align:center;">
+                        <%= state.state_s(sub_state.to_s) %>
+                      </div>
+                  <%end%>
+                </div>
+                <i style="display:block;text-align:center;margin-bottom: 3px" class="glyphicon glyphicon-arrow-down"></i>
+              </div>
+              <div class = "col-md-3"></div>
+            </div>
+        <%end %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

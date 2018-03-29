@@ -14,7 +14,7 @@
     <tbody>
     <% @lines.each do |line| %>
         <tr>
-          <td> Linea linea extra portuaria </td>
+          <td><%= line.name %> </td>
           <td><%= link_to 'Show', line,  class: "btn btn-info" %></td>
           <td><%= link_to 'Edit', edit_line_path(line), class: "btn btn-primary" %></td>
           <td><%= link_to 'Destroy', line, class: "btn btn-danger",method: :delete, data: { confirm: 'Are you sure?' } %></td>

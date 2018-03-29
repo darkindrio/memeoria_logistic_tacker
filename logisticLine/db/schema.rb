@@ -10,12 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180321213413) do
+ActiveRecord::Schema.define(version: 20180328205302) do
 
   create_table "lines", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.string   "description"
+    t.integer  "n_actors"
+    t.integer  "n_stages"
   end
 
   create_table "stages", force: :cascade do |t|
@@ -37,6 +40,9 @@ ActiveRecord::Schema.define(version: 20180321213413) do
     t.string   "description"
     t.integer  "n_actors"
     t.integer  "n_sub_process"
+    t.string   "sub_state"
+    t.string   "alert"
+    t.string   "st_machine"
     t.index ["stage_id"], name: "index_states_on_stage_id"
   end
 

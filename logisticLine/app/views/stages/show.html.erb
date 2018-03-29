@@ -29,11 +29,7 @@
                 <strong>Numero procesos:</strong> <%= @stage.n_process %>
               </p>
             </div>
-            <div class = "col-md-4">
-              <p>
-                <strong>Estado actual: </strong> <span class="label label-danger">Danger</span>
-              </p>
-            </div>
+
             <div class = "col-md-4">
               <p>
                 <strong>Numero actores: </strong> 5
@@ -52,16 +48,28 @@
   </div>
   <h1> Estados </h1>
   <div class = "row">
+    <% modal_counter = 1 %>
     <% @stage.states.each do |state| %>
         <div class = "col-md-4">
-          <div class="panel panel-default">
-            <div class="panel-heading">
+          <div class="panel panel-default ">
+            <div class="panel-heading state-alert-<%= state.alert %>">
               <h3 class="panel-title"><%= state.name %></h3>
             </div>
-            <div class="panel-body">
-              <div class = "well" >
-                <%= truncate(state.description, length: 250) %>
+            <div class = "row">
+              <div class="col-md-8 col-md-offset-2 ">
+                <h3>Estado actual </h3>
+                <div class="panel panel-default">
+                  <div style="text-align: center" class= "panel-body state-alert-<%= state.alert %>" >
+                    <% if state.sub_state %>
+                        <%= state.state_s(state.sub_state.to_s) %>
+                    <% else %>
+                      No definido
+                    <% end %>
+                  </div>
+                </div>
               </div>
+            </div>
+            <div class="panel-body state-alert-<%= state.alert %>" >
               <p>
                 <strong>Numero actores: </strong> <%= state.n_actors %>
               </p>
@@ -69,9 +77,19 @@
                 <strong>Numero procesos:</strong> <%= state.n_sub_process %>
               </p>
             </div>
+            <div class="panel-footer state-alert-<%= state.alert %>">
+              <button type="button" class="btn btn-info" data-toggle="modal" data-target=<%="#sub_states_modal_#{modal_counter}"%>>Ver flujo</button>
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target=<%="#state_alert_edit_modal_#{modal_counter}"%>>Alertas</button>
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target=<%="#state_alert_edit_modal_#{modal_counter}"%>>Siguente estado</button>
+
+              <%= render :partial => 'sub_state_modal', :locals => {:state => state, :modal_counter => modal_counter} %>
+              <%= render :partial => 'state_alert_modal', :locals => {:state => state, :modal_counter => modal_counter} %>
+
+            </div>
 
           </div>
         </div>
+        <% modal_counter += 1 %>
     <%end%>
   </div>
 </div>
