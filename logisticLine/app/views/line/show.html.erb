@@ -1,45 +1,50 @@
 <div class = container>
   <h1> Informacion de la linea </h1>
-  <div class = "row">
-    <div class = "col-md-12">
-      <div class="panel panel-default">
-        <div class="panel-heading clearfix">
-          <h3 class="panel-title pull-left" style="padding-top: 7.5px;"><%= @line.name %></h3>
-          <div class="btn-group pull-right">
-            <td>
-              <%= link_to  "www", class: "btn btn-primary" do %>
-                  <i class="glyphicon glyphicon-pencil"></i> Editar
-              <%end %>
-            </td>
-            <td><%= link_to 'X', "www", class: "btn btn-danger",method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  <a href="#Foo" class="btn btn-default" data-toggle="collapse">Desplegar informacion de la linea</a>
+  <div id="Foo" class="collapse">
+    <div class = "row">
+      <div class = "col-md-12">
+        <div class="panel panel-default">
+          <div class="panel-heading clearfix">
+            <h3 class="panel-title pull-left" style="padding-top: 7.5px;"><%= @line.name %></h3>
+            <% if can? :edit, State %>
+                <div class="btn-group pull-right">
+                  <td>
+                    <%= link_to  "www", class: "btn btn-primary" do %>
+                        <i class="glyphicon glyphicon-pencil"></i> Editar
+                    <%end %>
+                  </td>
+                  <td><%= link_to 'X', "www", class: "btn btn-danger",method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                </div>
+            <% end %>
           </div>
-        </div>
-        <div class="panel-body">
-          <div class = "well">
-            <p>
-              <%= @line.description %>
-            </p>
-          </div>
-          <div class = "row">
-            <div class = "col-md-4">
+          <div class="panel-body">
+            <div class = "well">
               <p>
-                <strong>Numero actores: </strong> <%= @line.n_actors %>
-              </p>
-              <p>
-                <strong>Numero Etapas:</strong> <%= @line.n_stages %>
+                <%= @line.description %>
               </p>
             </div>
-            <div class = "col-md-4">
-              <p>
-                <strong>Numero actores: </strong> 5
-              </p>
-              <p>
-                <strong>Numero procesos:</strong> 5
-              </p>
+            <div class = "row">
+              <div class = "col-md-4">
+                <p>
+                  <strong>Numero actores: </strong> <%= @line.n_actors %>
+                </p>
+                <p>
+                  <strong>Numero Etapas:</strong> <%= @line.n_stages %>
+                </p>
+              </div>
+              <div class = "col-md-4">
+                <p>
+                  <strong>Numero actores: </strong> 5
+                </p>
+                <p>
+                  <strong>Numero procesos:</strong> 5
+                </p>
+              </div>
+
             </div>
 
           </div>
-
         </div>
       </div>
     </div>
@@ -47,6 +52,7 @@
 
   <h1>Etapas de la linea</h1>
   <div class = "row">
+    <% modal_counter = 1 %>
     <% @line.stages.each do |stage| %>
         <div class = "col-md-4">
           <div class="panel panel-default">
@@ -66,9 +72,12 @@
             </div>
             <div class="panel-footer">
               <%= link_to 'Ver etapa', stage,  class: "btn btn-info" %>
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target=<%="#states_flow_modal_#{modal_counter}"%>>Ver flujo</button>
             </div>
           </div>
         </div>
+        <%= render :partial => 'states/show_states_flow_modal', :locals => {:stage => stage, :modal_counter => modal_counter} %>
+        <% modal_counter += 1 %>
     <%end%>
   </div>
 

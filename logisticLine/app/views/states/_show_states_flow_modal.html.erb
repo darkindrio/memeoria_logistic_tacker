@@ -1,0 +1,31 @@
+<div class="modal fade" id=<%="states_flow_modal_#{modal_counter}"%> role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title"><%= stage.name %></h4>
+      </div>
+      <div class="modal-body">
+        <% states = stage.states %>
+        <% states.each do |state| %>
+            <div class = "row">
+              <div class = "col-md-3"></div>
+              <div class = "col-md-6">
+                <div class="panel panel-default" style="margin-bottom: 0px;text-align:center;">
+                  <div class="panel-body">
+                    <%= state.name %>
+                  </div>
+                </div>
+                <i style="display:block;text-align:center;margin-bottom: 3px" class="glyphicon glyphicon-arrow-down"></i>
+              </div>
+              <div class = "col-md-3"></div>
+            </div>
+        <%end %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

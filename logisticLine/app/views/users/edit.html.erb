@@ -1,0 +1,13 @@
+<div class = "container">
+<div class = "row">
+  <div class = "col-md-6 col-md-offset-3">
+    <div class ="well">
+      <%= form_for @user, url: {action: "update"}, html: {class: "nifty_form"} do |f| %>
+          <%= f.text_field :email %>
+
+          <%= f.submit "Update" %>
+      <% end %>
+    </div>
+  </div>
+</div>
+</div>

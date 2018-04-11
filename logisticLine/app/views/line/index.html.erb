@@ -1,7 +1,5 @@
 <div class = "container">
-  <p id="notice"><%= notice %></p>
-
-  <h1>Listing Lines</h1>
+  <h1>Contenedores</h1>
 
   <table class = "table">
     <thead>
@@ -12,18 +10,22 @@
     </thead>
 
     <tbody>
-    <% @lines.each do |line| %>
+    <% @container.each do |container| %>
         <tr>
-          <td><%= line.name %> </td>
-          <td><%= link_to 'Show', line,  class: "btn btn-info" %></td>
-          <td><%= link_to 'Edit', edit_line_path(line), class: "btn btn-primary" %></td>
-          <td><%= link_to 'Destroy', line, class: "btn btn-danger",method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <% line = container.line %>
+          <td><%= container.number %> </td>
+          <td><%= link_to 'Ver contenedor', line,  class: "btn btn-info" %></td>
+          <td>
+            <%= button_tag(type: 'button', class: 'btn btn-primary', data: { toggle: 'modal', target: '.subscribe_alert_modal_0' } ) do %>
+                <i class="glyphicon glyphicon-wrench"></i> Administrar notificaciones
+              <% end %>
+            </td>
         </tr>
+        <%= render :partial => 'shared/subscribe_alerts_modal', :locals => {:container =>container, :modal_counter => 0} %>
     <% end %>
     </tbody>
   </table>
 
   <br>
 
-  <%= link_to 'New Line', new_line_path %>
 </div>

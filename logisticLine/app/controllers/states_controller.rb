@@ -1,12 +1,20 @@
 class StatesController < ApplicationController
 
-  before_action :set_state, only: [:update, :destroy]
+  before_action :set_state, only: [:update, :destroy, :next_state]
 
   def show
     @state = State.find(params['id'])
+    authorize! :update, @state
   end
 
   def edit
+  end
+
+  def next_state
+    @state.set_st_machine()
+    @state.next_state
+    @state.save
+    redirect_to stage_path(id: @state.stage_id), notice: 'Se ha cambiado el estado.'
   end
 
   def update

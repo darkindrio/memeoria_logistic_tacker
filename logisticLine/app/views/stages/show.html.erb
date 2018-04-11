@@ -1,18 +1,20 @@
 <div class = "container">
-  <h1> Informacion de la estapa </h1>
+  <h1> Informacion de la etapa </h1>
   <div class = "row">
     <div class = "col-md-12">
       <div class="panel panel-default">
         <div class="panel-heading clearfix">
           <h3 class="panel-title pull-left" style="padding-top: 7.5px;"><%= @stage.name %></h3>
-          <div class="btn-group pull-right">
-            <td>
-              <%= link_to  "www", class: "btn btn-primary" do %>
-                  <i class="glyphicon glyphicon-pencil"></i> Editar
-              <%end %>
-            </td>
-            <td><%= link_to 'X', "www", class: "btn btn-danger",method: :delete, data: { confirm: 'Are you sure?' } %></td>
-          </div>
+          <% if can? :edit, State %>
+            <div class="btn-group pull-right">
+              <td>
+                <%= link_to  "www", class: "btn btn-primary" do %>
+                    <i class="glyphicon glyphicon-pencil"></i> Editar
+                <%end %>
+              </td>
+              <td><%= link_to 'X', "www", class: "btn btn-danger",method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            </div>
+          <% end %>
         </div>
         <div class="panel-body">
           <div class = "well">
@@ -37,6 +39,11 @@
               <p>
                 <strong>Numero procesos:</strong> 5
               </p>
+            </div>
+
+            <div class = "col-md-4">
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target=<%="#states_flow_modal_0"%>>Ver flujo</button>
+              <%= render :partial => 'states/show_states_flow_modal', :locals => {:stage => @stage, :modal_counter => 0} %>
             </div>
 
           </div>
@@ -79,11 +86,15 @@
             </div>
             <div class="panel-footer state-alert-<%= state.alert %>">
               <button type="button" class="btn btn-info" data-toggle="modal" data-target=<%="#sub_states_modal_#{modal_counter}"%>>Ver flujo</button>
-              <button type="button" class="btn btn-primary" data-toggle="modal" data-target=<%="#state_alert_edit_modal_#{modal_counter}"%>>Alertas</button>
-              <button type="button" class="btn btn-primary" data-toggle="modal" data-target=<%="#state_alert_edit_modal_#{modal_counter}"%>>Siguente estado</button>
+              <% if can? :edit, State %>
+                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target=<%="#state_alert_edit_modal_#{modal_counter}"%>>Alertas</button>
+                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target=<%="#next_state_modal_#{modal_counter}"%>>Siguente estado</button>
+              <% end %>
+
 
               <%= render :partial => 'sub_state_modal', :locals => {:state => state, :modal_counter => modal_counter} %>
               <%= render :partial => 'state_alert_modal', :locals => {:state => state, :modal_counter => modal_counter} %>
+              <%= render :partial => 'states/next_state_modal', :locals => {:state => state, :modal_counter => modal_counter} %>
 
             </div>
 

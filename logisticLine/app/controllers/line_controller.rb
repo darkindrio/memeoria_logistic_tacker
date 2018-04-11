@@ -4,7 +4,7 @@ class LineController < ApplicationController
   # GET /lines
   # GET /lines.json
   def index
-    @lines = Line.all
+    @container = Container.all
   end
 
   # GET /lines/1

@@ -9,7 +9,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalab    le=no">
   </head>
+
   <%= render :partial => 'shared/navbar' %>
+  <%= render partial: "shared/flash_messages", flash: flash %>
 
   <body>
     <%= yield %>

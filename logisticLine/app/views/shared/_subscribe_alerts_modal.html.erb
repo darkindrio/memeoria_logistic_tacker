@@ -1,0 +1,45 @@
+<div class="modal fade <%="subscribe_alert_modal_#{modal_counter}"%>" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Notificar cuando</h4>
+      </div>
+      <div class="modal-body">
+        <%=  form_for container, :url => user_subscribe_url(container_id: container.id, user_id: current_user.id),method: "get"  do |f| %>
+            <% subs =  current_user.alert_subscribes.where(notification_type: 0).first %>
+            <% ffdsf =  current_user.alert_subscribes.where(notification_type: 1).first %>
+            <% ttgtg =  current_user.alert_subscribes.where(notification_type: 2).first %>
+            <div class="form-check" style="margin-top: 30px;">
+              <% if current_user.has_alert?(0) %>
+                  <%= check_box_tag :state_box, 1, true  %>
+              <% else %>
+                  <%= check_box_tag :state_box%>
+              <% end %>
+              <label class="form-check-label" for="exampleCheck1">Pasar estado</label>
+            </div>
+            <div class="form-check" style="margin-top: 30px;">
+              <% if current_user.has_alert?(1) %>
+                <%= check_box_tag :alert_box, 1, true%>
+              <% else %>
+                <%= check_box_tag :alert_box%>
+              <% end %>
+              <label class="form-check-label" for="exampleCheck1">Cambio de alerta</label>
+            </div>
+            <div class="form-check" style="margin-top: 30px;">
+              <% if current_user.has_alert?(2) %>
+                  <%= check_box_tag :finish_box, 1, true%>
+              <% else %>
+                <%= check_box_tag :finish_box%>
+              <% end %>
+              <label class="form-check-label" for="exampleCheck1">Fin proceso</label>
+            </div>
+            <%= f.submit 'Guardar cambios', :class => 'btn btn-primary' %>
+        <% end %>
+      </div>
+      <div class="modal-footer">
+
+      </div>
+    </div>
+  </div>
+</div>
