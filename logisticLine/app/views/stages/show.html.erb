@@ -1,72 +1,99 @@
 <div class = "container">
   <h1> Informacion de la etapa </h1>
-  <div class = "row">
-    <div class = "col-md-12">
-      <div class="panel panel-default">
-        <div class="panel-heading clearfix">
-          <h3 class="panel-title pull-left" style="padding-top: 7.5px;"><%= @stage.name %></h3>
-          <% if can? :edit, State %>
-            <div class="btn-group pull-right">
-              <td>
-                <%= link_to  "www", class: "btn btn-primary" do %>
-                    <i class="glyphicon glyphicon-pencil"></i> Editar
-                <%end %>
-              </td>
-              <td><%= link_to 'X', "www", class: "btn btn-danger",method: :delete, data: { confirm: 'Are you sure?' } %></td>
-            </div>
-          <% end %>
-        </div>
-        <div class="panel-body">
-          <div class = "well">
-           <p>
-             <%= @stage.description %>
-           </p>
+  <a href="#Foo" class="btn btn-default" data-toggle="collapse">Desplegar informacion de la etapa</a>
+  <div id="Foo" class="collapse">
+    <div class = "row">
+      <div class = "col-md-12">
+        <div class="panel panel-default">
+          <div class="panel-heading clearfix">
+            <h3 class="panel-title pull-left" style="padding-top: 7.5px;"><%= @stage.name %></h3>
+            <% if can? :edit, State %>
+                <div class="btn-group pull-right">
+                  <td>
+                    <%= link_to  "www", class: "btn btn-primary" do %>
+                        <i class="glyphicon glyphicon-pencil"></i> Editar
+                    <%end %>
+                  </td>
+                  <td><%= link_to 'X', "www", class: "btn btn-danger",method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                </div>
+            <% end %>
           </div>
-          <div class = "row">
-            <div class = "col-md-4">
+          <div class="panel-body">
+            <div class = "well">
               <p>
-                <strong>Numero actores: </strong> <%= @stage.n_actors %>
-              </p>
-              <p>
-                <strong>Numero procesos:</strong> <%= @stage.n_process %>
+                <%= @stage.description %>
               </p>
             </div>
+            <div class = "row">
+              <div class = "col-md-4">
+                <p>
+                  <strong>Numero actores: </strong> <%= @stage.n_actors %>
+                </p>
+                <p>
+                  <strong>Numero procesos:</strong> <%= @stage.n_process %>
+                </p>
+              </div>
 
-            <div class = "col-md-4">
-              <p>
-                <strong>Numero actores: </strong> 5
-              </p>
-              <p>
-                <strong>Numero procesos:</strong> 5
-              </p>
+              <div class = "col-md-4">
+                <p>
+                  <strong>Numero actores: </strong> 5
+                </p>
+                <p>
+                  <strong>Numero procesos:</strong> 5
+                </p>
+              </div>
             </div>
-
-            <div class = "col-md-4">
-              <button type="button" class="btn btn-primary" data-toggle="modal" data-target=<%="#states_flow_modal_0"%>>Ver flujo</button>
-              <%= render :partial => 'states/show_states_flow_modal', :locals => {:stage => @stage, :modal_counter => 0} %>
-            </div>
-
           </div>
-
         </div>
       </div>
     </div>
-
   </div>
+  <h1> Flujo de la etapa</h1>
+  <div class = "row" id = "upDiv">
+    <div class = "col-md-6">
+      <div class = "well">
+        <% states = @stage.states %>
+        <% modal_counter = 1 %>
+        <% is_current_state = true %>
+        <% states.each do |state| %>
+          <div class="panel panel-default" style="margin-bottom: 0px;text-align:center;">
+            <div class="panel-body goToState finish-<%=state.is_finish?(state.st_machine) %>"   id = "state-<%= modal_counter %>"  >
+              <% if state.is_finish?(state.st_machine) %>
+                <%= state.name %> <i class="glyphicon glyphicon-ok"></i>
+              <% else %>
+                  <% if is_current_state %>
+                      <i class="glyphicon glyphicon-arrow-right"></i> <%= state.name %> <i class="glyphicon glyphicon-arrow-left"></i>
+                      <% is_current_state = false %>
+                  <% else %>
+                      <%= state.name %>
+                  <% end %>
+              <% end %>
+            </div>
+          </div>
+          <% if state.name != states[-1].name %>
+              <i style="display:block;text-align:center;margin-bottom: 3px" class="glyphicon glyphicon-arrow-down"></i>
+          <% end %>
+            <% modal_counter += 1 %>
+        <%end %>
+      </div>
+    </div>
+  </div>
+
+
   <h1> Estados </h1>
   <div class = "row">
     <% modal_counter = 1 %>
     <% @stage.states.each do |state| %>
         <div class = "col-md-4">
-          <div class="panel panel-default ">
-            <div class="panel-heading state-alert-<%= state.alert %>">
+          <div class="panel panel-default" id = "state-<%=modal_counter%>-state" >
+            <div class="panel-heading">
               <h3 class="panel-title"><%= state.name %></h3>
             </div>
             <div class = "row">
               <div class="col-md-8 col-md-offset-2 ">
                 <h3>Estado actual </h3>
                 <div class="panel panel-default">
-                  <div style="text-align: center" class= "panel-body state-alert-<%= state.alert %>" >
+                  <div style="text-align: center" class= "panel-body" >
                     <% if state.sub_state %>
                         <%= state.state_s(state.sub_state.to_s) %>
                     <% else %>
@@ -76,7 +103,21 @@
                 </div>
               </div>
             </div>
-            <div class="panel-body state-alert-<%= state.alert %>" >
+
+            <div class = "row">
+              <div class="col-md-8 col-md-offset-2 ">
+                <h3>Alertas </h3>
+                <div class="panel panel-default">
+                  <div style="text-align: center" class= "panel-body" >
+                    <i class="glyphicon glyphicon-certificate normal-gly safe-<%= state.alert %>"></i>
+                    <i class="glyphicon glyphicon-certificate normal-gly warning-<%= state.alert %>"></i>
+                    <i class="glyphicon glyphicon-certificate normal-gly danger-<%= state.alert %>"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel-body" >
               <p>
                 <strong>Numero actores: </strong> <%= state.n_actors %>
               </p>
@@ -84,12 +125,16 @@
                 <strong>Numero procesos:</strong> <%= state.n_sub_process %>
               </p>
             </div>
-            <div class="panel-footer state-alert-<%= state.alert %>">
+            <div class="panel-footer">
               <button type="button" class="btn btn-info" data-toggle="modal" data-target=<%="#sub_states_modal_#{modal_counter}"%>>Ver flujo</button>
               <% if can? :edit, State %>
                   <button type="button" class="btn btn-primary" data-toggle="modal" data-target=<%="#state_alert_edit_modal_#{modal_counter}"%>>Alertas</button>
                   <button type="button" class="btn btn-primary" data-toggle="modal" data-target=<%="#next_state_modal_#{modal_counter}"%>>Siguente estado</button>
               <% end %>
+
+                <%=button_tag(type: 'button', class: 'btn btn-default hidden-md hidden-lg go-up') do %>
+                    <i class="glyphicon glyphicon-arrow-up"></i>Volver
+                <% end %>
 
 
               <%= render :partial => 'sub_state_modal', :locals => {:state => state, :modal_counter => modal_counter} %>
@@ -102,5 +147,19 @@
         </div>
         <% modal_counter += 1 %>
     <%end%>
+    <div id = "goo"></div>
   </div>
 </div>
+<script>
+    $(".goToState").click(function() {
+        var divId = "#"+this.id+"-state";
+        $('html').animate({
+                scrollTop: $(divId).offset().top},
+            'slow');
+    });
+    $(".go-up").click(function() {
+        $('html').animate({
+                scrollTop: $("#upDiv").offset().top},
+            'slow');
+    });
+</script>

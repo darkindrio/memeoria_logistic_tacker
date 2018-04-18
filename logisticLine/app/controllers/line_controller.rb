@@ -17,6 +17,10 @@ class LineController < ApplicationController
     @line = Line.new
   end
 
+  def data_x
+
+  end
+
   # GET /lines/1/edit
   def edit
   end

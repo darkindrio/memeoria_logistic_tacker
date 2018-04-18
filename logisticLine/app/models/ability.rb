@@ -7,6 +7,7 @@ class Ability
       can :manage, State
       can :manage, Stage
       can :manage, User
+      can :manage, Line
     else
       can :read, State
       can :read, Stage

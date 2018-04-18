@@ -34,6 +34,17 @@ class State < ApplicationRecord
   end
 
 
+  def get_last_state(st_machine)
+    indifferent_hash = State.state_machines.with_indifferent_access
+    return indifferent_hash[st_machine].states.select(&:final?).map(&:name)
+  end
+
+  def is_finish?(state_machine)
+    last_state = get_last_state(state_machine)[0]
+    return last_state.to_s == self.sub_state
+  end
+
+
 
   def get_state_machine_name(stage_state_name)
     puts stage_state_name

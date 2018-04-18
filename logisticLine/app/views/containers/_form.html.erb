@@ -1,0 +1,55 @@
+<%= form_for(@container) do |f| %>
+    <% if @container.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@container.errors.count, "error") %> prohibited this container from being saved:</h2>
+
+          <ul>
+            <% @container.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="field">
+      <%= f.label :number %><br>
+      <%= f.text_field :number, class: "form-control"%>
+    </div>
+
+    <div class="field">
+      <%= f.label :eta %><br>
+      <%= f.text_field :eta, class: "form-control" %>
+    </div>
+    <div class="field">
+      <%= f.label :travel_number %><br>
+      <%= f.text_field :travel_number, class: "form-control" %>
+    </div>
+    <div class="field">
+      <%= f.label :storer %><br>
+      <%= f.text_field :storer, class: "form-control" %>
+    </div>
+    <div class="field">
+      <%= f.label :consignee %><br>
+      <%= f.text_field :consignee, class: "form-control" %>
+    </div>
+    <div class="field">
+      <%= f.label :codename %><br>
+      <%= f.text_field :codename, class: "form-control" %>
+    </div>
+
+    <div class="actions" style="margin-top: 15px;">
+      <div class = "row">
+        <div class = "col-md-4">
+          <%= f.submit "Crear contenedor", class: "btn btn-primary" %>
+        </div>
+        <div class = "col-md-4">
+          <%= link_to 'Subir Edi', containers_path, class: "btn btn-default" %>
+        </div>
+        <div class = "col-md-4">
+          <%= link_to 'Volver', line_index_path, class: "btn btn-default" %>
+        </div>
+      </div>
+
+
+    </div>
+<% end %>

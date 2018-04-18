@@ -11,7 +11,7 @@
             <% ffdsf =  current_user.alert_subscribes.where(notification_type: 1).first %>
             <% ttgtg =  current_user.alert_subscribes.where(notification_type: 2).first %>
             <div class="form-check" style="margin-top: 30px;">
-              <% if current_user.has_alert?(0) %>
+              <% if current_user.has_alert?(0,container) %>
                   <%= check_box_tag :state_box, 1, true  %>
               <% else %>
                   <%= check_box_tag :state_box%>
@@ -19,7 +19,7 @@
               <label class="form-check-label" for="exampleCheck1">Pasar estado</label>
             </div>
             <div class="form-check" style="margin-top: 30px;">
-              <% if current_user.has_alert?(1) %>
+              <% if current_user.has_alert?(1, container) %>
                 <%= check_box_tag :alert_box, 1, true%>
               <% else %>
                 <%= check_box_tag :alert_box%>
@@ -27,7 +27,7 @@
               <label class="form-check-label" for="exampleCheck1">Cambio de alerta</label>
             </div>
             <div class="form-check" style="margin-top: 30px;">
-              <% if current_user.has_alert?(2) %>
+              <% if current_user.has_alert?(2, container) %>
                   <%= check_box_tag :finish_box, 1, true%>
               <% else %>
                 <%= check_box_tag :finish_box%>

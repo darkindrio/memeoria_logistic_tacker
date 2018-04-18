@@ -13,8 +13,8 @@ class User < ApplicationRecord
     self.role == requested_role.to_s
   end
 
-  def has_alert?(alert_type)
-    !!alert_subscribes.where(notification_type: alert_type).first
+  def has_alert?(alert_type, container)
+    !!alert_subscribes.where(notification_type: alert_type).where(container_id: container.id).first
   end
 
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180409190648) do
+ActiveRecord::Schema.define(version: 20180415163425) do
 
   create_table "alert_subscribes", force: :cascade do |t|
     t.integer  "user_id"
@@ -23,9 +23,14 @@ ActiveRecord::Schema.define(version: 20180409190648) do
   end
 
   create_table "containers", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
     t.string   "number"
+    t.string   "travel_number"
+    t.string   "eta"
+    t.string   "storer"
+    t.string   "consignee"
+    t.string   "codename"
   end
 
   create_table "lines", force: :cascade do |t|

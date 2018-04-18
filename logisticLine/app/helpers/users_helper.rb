@@ -1,7 +1,7 @@
 module UsersHelper
 
-  def subscribe(alert_type)
-    if !current_user.has_alert?(alert_type)
+  def subscribe(alert_type, container)
+    if !current_user.has_alert?(alert_type, container)
       subscribe = AlertSubscribe.new
       subscribe.user = current_user
       subscribe.container_id = params['container_id']

@@ -80,5 +80,8 @@
         <% modal_counter += 1 %>
     <%end%>
   </div>
+  <h1> Informacion del contenedor</h1>
+
+  <%= render :partial => 'conatiner_info', :locals => {:@container => @line.container} %>
 
 </div>
