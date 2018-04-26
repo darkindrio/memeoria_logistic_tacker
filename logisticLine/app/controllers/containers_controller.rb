@@ -33,11 +33,15 @@ class ContainersController < ApplicationController
     state_fw.st_machine = "fw"
     state_fw.sub_state = "negociarFw"
     state_fw.name = "Contancto Cliente- Forwarder"
+    state_fw.idx = 1
+    record = RecordState.new
+
     s1.states << state_fw
 
     state_bl = State.new
     state_bl.st_machine = "bl"
     state_bl.sub_state = "gestionBl"
+    state_bl.idx = 2
     state_bl.name = "Proceso de canje de B/L y envío documentos"
     s1.states << state_bl
 
@@ -45,24 +49,28 @@ class ContainersController < ApplicationController
     state_pem.st_machine = "pem"
     state_pem.name = "Presentación y envío de Manifiesto"
     state_pem.sub_state = "gestionM"
+    state_pem.idx = 3
     s1.states << state_pem
 
     state_ins = State.new
     state_ins.st_machine = "ins"
     state_ins.name = "Inscripción de carga, condicion de fiscalización y pago aranceles"
     state_ins.sub_state = "inspeccionCarga"
+    state_ins.idx = 4
     s1.states<< state_ins
 
     state_gr = State.new
     state_gr.st_machine = "gr"
-    state_gr.sub_state = "tramitaGarantia"
     state_gr.name = "Garantización de CNT y liberación de TATC"
+    state_gr.sub_state = "tramitaGarantia"
+    state_gr.idx = 5
     s1.states << state_gr
 
     state_ret = State.new
     state_ret.st_machine = "ret"
     state_ret.name = "Gestión e inscripción condición de retiro"
     state_ret.sub_state = "insriSecRet"
+    state_ret.idx = 6
     s1.states << state_ret
 
 
@@ -75,10 +83,14 @@ class ContainersController < ApplicationController
     line.stages << s3
 
     @container.line = line
+    @container.users << current_user
 
 
     respond_to do |format|
       if @container.save
+        record.state = state_fw
+        record.stage = s1
+        record.save
         format.html { redirect_to line_index_path, notice: 'Container was successfully created.' }
         format.json { render :show, status: :created, location: @container }
       else
@@ -86,6 +98,28 @@ class ContainersController < ApplicationController
         format.json { render json: line_index_path.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def AddUser
+    container = Container.find(params['container_id'])
+    user = User.find(params['users']['user_id'])
+    container.users << user
+    container.save
+    redirect_to stage_path(params['stage_id']) ,notice: 'Se ha agregado el usuario '+ user.email
+  end
+
+  def RemoveUser
+    container = Container.find(params['container_id'])
+    user = User.find(params['users']['user_id'])
+    users = []
+    container.users.each do |u|
+      if u.id.to_i != params['users']['user_id'].to_i
+        users << u
+      end
+    end
+    container.users = users
+    container.save
+    redirect_to stage_path(params['stage_id']),notice: 'Se ha eliminado el usuario '+ user.email
   end
 
   def data

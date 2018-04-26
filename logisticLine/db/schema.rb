@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180415163425) do
+ActiveRecord::Schema.define(version: 20180426030514) do
 
   create_table "alert_subscribes", force: :cascade do |t|
     t.integer  "user_id"
@@ -33,6 +33,13 @@ ActiveRecord::Schema.define(version: 20180415163425) do
     t.string   "codename"
   end
 
+  create_table "containers_users", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "container_id"
+    t.index ["container_id"], name: "index_containers_users_on_container_id"
+    t.index ["user_id"], name: "index_containers_users_on_user_id"
+  end
+
   create_table "lines", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at",   null: false
@@ -42,6 +49,16 @@ ActiveRecord::Schema.define(version: 20180415163425) do
     t.integer  "n_stages"
     t.integer  "container_id"
     t.index ["container_id"], name: "index_lines_on_container_id"
+  end
+
+  create_table "record_states", force: :cascade do |t|
+    t.integer  "state_id"
+    t.integer  "stage_id"
+    t.string   "message"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["stage_id"], name: "index_record_states_on_stage_id"
+    t.index ["state_id"], name: "index_record_states_on_state_id"
   end
 
   create_table "stages", force: :cascade do |t|
@@ -66,6 +83,7 @@ ActiveRecord::Schema.define(version: 20180415163425) do
     t.string   "sub_state"
     t.string   "alert"
     t.string   "st_machine"
+    t.integer  "idx"
     t.index ["stage_id"], name: "index_states_on_stage_id"
   end
 

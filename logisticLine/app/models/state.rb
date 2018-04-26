@@ -1,6 +1,9 @@
 class State < ApplicationRecord
   belongs_to :stage
   has_many :substates
+  
+  has_many :record_states
+  has_many :records, :through => :record_states, :source => :stage
 
   attr_accessor :current_machine
 
@@ -33,6 +36,42 @@ class State < ApplicationRecord
     return states_hash[state_name]
   end
 
+  def get_states_idxs
+    states = stage.states
+    idxs = []
+    states.each do |state|
+        idxs << state.idx
+    end
+    return idxs
+  end
+
+  def get_next_state
+    states = stage.states
+    states.each do |state|
+      if state.idx == self.idx.to_i + 1
+        return state
+      end
+    end
+  end
+
+  def get_init_date
+    initRecord = RecordState.where(stage_id: stage.id, state_id: self.id).first
+    if initRecord
+      return initRecord.created_at
+    end
+  end
+
+  def get_end_date
+    initRecord = RecordState.where(stage_id: stage.id, state_id: self.id)
+    if initRecord.count == 2
+      return initRecord[1].created_at
+    end
+  end
+
+  def has_next_state?()
+    idxs = get_states_idxs
+    self.idx != idxs.count
+  end
 
   def get_last_state(st_machine)
     indifferent_hash = State.state_machines.with_indifferent_access

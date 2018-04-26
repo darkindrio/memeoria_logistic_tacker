@@ -14,6 +14,17 @@ class StatesController < ApplicationController
     @state.set_st_machine()
     @state.next_state
     @state.save
+
+    if @state.is_finish?(@state.st_machine)
+      stage = @state.stage
+      stage.records << @state
+
+      if @state.has_next_state? and @state.is_finish?(@state.st_machine)
+        nextState = @state.get_next_state
+        stage.records << nextState
+      end
+      stage.save
+    end
     redirect_to stage_path(id: @state.stage_id), notice: 'Se ha cambiado el estado.'
   end
 

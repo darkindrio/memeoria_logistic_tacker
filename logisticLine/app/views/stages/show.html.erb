@@ -48,9 +48,52 @@
       </div>
     </div>
   </div>
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+    Administrar usuarios
+  </button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <% container = @stage.line.container %>
+          <h3> Agregar usuario</h3>
+          <%= form_tag(add_user_to_container_path, method: "post") do %>
+              <div class="field">
+                <%= label_tag :email %><br>
+                <%= collection_select(:users, :user_id, User.where.not(id: container.users) , :id, :email,  {:class=>'form-control'}) %>
+              </div>
+              <%= hidden_field_tag "container_id",container.id %>
+              <%= hidden_field_tag "stage_id", @stage.id %>
+              <%= submit_tag("Agregar usuario") %>
+          <% end %>
+
+          <h3> Agregar usuario</h3>
+          <%= form_tag(remove_user_to_container_path, method: "post") do %>
+              <div class="field">
+                <%= label_tag :email %><br>
+                <%= collection_select(:users, :user_id, container.users, :id, :email,  {:class=>'form-control'}) %>
+              </div>
+              <%= hidden_field_tag "container_id",container.id %>
+              <%= hidden_field_tag "stage_id", @stage.id %>
+              <%= submit_tag("Eliminar usuario") %>
+          <% end %>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
   <h1> Flujo de la etapa</h1>
   <div class = "row" id = "upDiv">
-    <div class = "col-md-6">
+    <div class = "col-md-10">
       <div class = "well">
         <% states = @stage.states %>
         <% modal_counter = 1 %>
@@ -68,6 +111,24 @@
                       <%= state.name %>
                   <% end %>
               <% end %>
+              <hr>
+              <div class = "row">
+                <div class = "col-md-4">
+                  <label>inicio</label>
+                  <% if state.get_init_date %>
+                    <%= state.get_init_date.strftime("%Y-%m-%d  %T") %>
+                  <% end %>
+                </div>
+                <div class = "col-md-4">
+                  <label>Termino</label>
+                  <% if state.get_end_date %>
+                      <%= state.get_end_date.strftime("%Y-%m-%d  %T") %>
+                  <% end %>
+                </div>
+                <div class = "col-md-4">
+                  <label>Transcurrido</label>
+                </div>
+              </div>
             </div>
           </div>
           <% if state.name != states[-1].name %>
