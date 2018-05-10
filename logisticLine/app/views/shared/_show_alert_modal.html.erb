@@ -20,6 +20,10 @@
           <%= alert.notification_type %>
         </div>
         <div class="content">
+          <label>Estado</label>
+          <%= alert.state.name if alert.state %>
+        </div>
+        <div class="content">
           <label>Fecha</label>
           <%= alert.created_at %>
         </div>

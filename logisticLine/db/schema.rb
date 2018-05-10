@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180510191122) do
+ActiveRecord::Schema.define(version: 20180510215716) do
 
   create_table "alert_subscribes", force: :cascade do |t|
     t.integer  "user_id"
@@ -19,7 +19,9 @@ ActiveRecord::Schema.define(version: 20180510191122) do
     t.datetime "updated_at",        null: false
     t.string   "notification_type"
     t.string   "message"
+    t.integer  "state_id"
     t.index ["container_id"], name: "index_alert_subscribes_on_container_id"
+    t.index ["state_id"], name: "index_alert_subscribes_on_state_id"
     t.index ["user_id"], name: "index_alert_subscribes_on_user_id"
   end
 

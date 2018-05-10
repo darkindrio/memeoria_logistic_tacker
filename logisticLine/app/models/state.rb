@@ -1,6 +1,7 @@
 class State < ApplicationRecord
   belongs_to :stage
   has_many :substates
+  has_many :alert_subscribes
   
   has_many :record_states
   has_many :records, :through => :record_states, :source => :stage
