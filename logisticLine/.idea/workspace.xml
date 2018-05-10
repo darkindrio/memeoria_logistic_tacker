@@ -16,6 +16,26 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="show.html.erb" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/views/stages/show.html.erb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="432">
+              <caret line="92" column="92" lean-forward="false" selection-start-line="92" selection-start-column="92" selection-end-line="92" selection-end-column="92" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="_add_user_modal.html.erb" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/views/shared/_add_user_modal.html.erb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="155">
+              <caret line="11" column="22" lean-forward="false" selection-start-line="11" selection-start-column="22" selection-end-line="11" selection-end-column="22" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="state.rb" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/models/state.rb">
           <provider selected="true" editor-type-id="text-editor">
@@ -67,11 +87,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="_show_alert_modal.html.erb" pinned="false" current-in-tab="true">
+      <file leaf-file-name="_show_alert_modal.html.erb" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/views/shared/_show_alert_modal.html.erb">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="317">
               <caret line="23" column="45" lean-forward="false" selection-start-line="23" selection-start-column="45" selection-end-line="23" selection-end-column="45" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="_form.html.erb" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/views/containers/_form.html.erb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="252">
+              <caret line="14" column="32" lean-forward="true" selection-start-line="14" selection-start-column="4" selection-end-line="14" selection-end-column="32" />
               <folding />
             </state>
           </provider>
@@ -126,7 +156,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/controllers/application_controller.rb" />
         <option value="$PROJECT_DIR$/app/helpers/application_helper.rb" />
         <option value="$PROJECT_DIR$/app/views/users/_edit_user_modal.html.erb" />
         <option value="$PROJECT_DIR$/app/views/users/edit_user.html.erb" />
@@ -170,13 +199,14 @@
         <option value="$PROJECT_DIR$/app/views/states/_form.html.erb" />
         <option value="$PROJECT_DIR$/app/views/containers/alert.html.erb" />
         <option value="$PROJECT_DIR$/app/views/line/index.html.erb" />
-        <option value="$PROJECT_DIR$/app/views/stages/show.html.erb" />
         <option value="$PROJECT_DIR$/db/migrate/20180510214506_add_references_to_state_to_alert_subs.rb" />
         <option value="$PROJECT_DIR$/app/models/alert_subscribe.rb" />
         <option value="$PROJECT_DIR$/app/models/state.rb" />
         <option value="$PROJECT_DIR$/db/migrate/20180510215716_rename_state_id_for_alert_subs.rb" />
         <option value="$PROJECT_DIR$/app/controllers/states_controller.rb" />
         <option value="$PROJECT_DIR$/app/views/shared/_show_alert_modal.html.erb" />
+        <option value="$PROJECT_DIR$/app/views/shared/_add_user_modal.html.erb" />
+        <option value="$PROJECT_DIR$/app/views/stages/show.html.erb" />
       </list>
     </option>
   </component>
@@ -250,6 +280,13 @@
               <item name="logisticLine" type="462c0819:PsiDirectoryNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
               <item name="views" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="logisticLine" type="b2602c69:ProjectViewProjectNode" />
+              <item name="logisticLine" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="containers" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="logisticLine" type="b2602c69:ProjectViewProjectNode" />
@@ -462,12 +499,12 @@
       <workItem from="1524749364699" duration="5939000" />
       <workItem from="1525720907830" duration="10431000" />
       <workItem from="1525814646329" duration="6480000" />
-      <workItem from="1525977229272" duration="10071000" />
+      <workItem from="1525977229272" duration="10986000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="191196000" />
+    <option name="totallyTimeSpent" value="192111000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="2484" y="373" width="1857" height="1092" extended-state="6" />
@@ -504,13 +541,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/views/stages/_sub_state_modal.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="10" column="10" lean-forward="false" selection-start-line="10" selection-start-column="10" selection-end-line="10" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/views/shared/data.html.erb">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="108">
@@ -644,13 +674,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
           <caret line="15" column="33" lean-forward="false" selection-start-line="15" selection-start-column="33" selection-end-line="15" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/containers/_form.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="14" column="32" lean-forward="true" selection-start-line="14" selection-start-column="4" selection-end-line="14" selection-end-column="32" />
         </state>
       </provider>
     </entry>
@@ -814,14 +837,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/stages/show.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3024">
-          <caret line="168" column="56" lean-forward="false" selection-start-line="168" selection-start-column="56" selection-end-line="168" selection-end-column="56" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/models/state.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="72">
@@ -893,6 +908,30 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="317">
           <caret line="23" column="45" lean-forward="false" selection-start-line="23" selection-start-column="45" selection-end-line="23" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/containers/_form.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="14" column="32" lean-forward="true" selection-start-line="14" selection-start-column="4" selection-end-line="14" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/stages/show.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="432">
+          <caret line="92" column="92" lean-forward="false" selection-start-line="92" selection-start-column="92" selection-end-line="92" selection-end-column="92" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/shared/_add_user_modal.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="155">
+          <caret line="11" column="22" lean-forward="false" selection-start-line="11" selection-start-column="22" selection-end-line="11" selection-end-column="22" />
           <folding />
         </state>
       </provider>
