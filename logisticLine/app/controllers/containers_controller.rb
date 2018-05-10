@@ -110,10 +110,10 @@ class ContainersController < ApplicationController
 
   def RemoveUser
     container = Container.find(params['container_id'])
-    user = User.find(params['users']['user_id'])
+    user = User.find(params['users_delete']['user_id'])
     users = []
     container.users.each do |u|
-      if u.id.to_i != params['users']['user_id'].to_i
+      if u.id.to_i != params['users_delete']['user_id'].to_i
         users << u
       end
     end

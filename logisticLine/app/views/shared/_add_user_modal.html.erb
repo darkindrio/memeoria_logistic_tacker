@@ -23,7 +23,7 @@
         <%= form_tag(remove_user_to_container_path, method: "post") do %>
             <div class="field">
               <%= label_tag :email %><br>
-              <%= collection_select(:users, :user_id, container.users, :id, :email,  {:class=>'form-control'}) %>
+              <%= collection_select(:users_delete, :user_id, container.users, :id, :email,  {:class=>'form-control'}) %>
             </div>
             <%= hidden_field_tag "container_id",container.id %>
             <%= hidden_field_tag "stage_id", @stage.id %>
@@ -36,3 +36,7 @@
     </div>
   </div>
 </div>
+<script>
+    $(document).ready(function() { $("#users_user_id").select2(); });
+    $(document).ready(function() { $("#users_delete_user_id").select2(); });
+</script>
