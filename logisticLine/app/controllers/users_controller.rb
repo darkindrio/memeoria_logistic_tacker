@@ -23,28 +23,15 @@ class UsersController < ApplicationController
   end
 
   def subscribeAlert
-    container = Container.find(params[:container_id])
-    if params['state_box'].present?
-      subscribe(0, container)
-    else
-      if current_user.has_alert?(0, container)
-        current_user.alert_subscribes.where(notification_type: 0).first.destroy
+
+    subscribed_alerts = ""
+    if params['notifications'].present?
+      params['notifications'].each do |alert|
+        subscribed_alerts = subscribed_alerts+alert+';'
       end
     end
-    if params['alert_box'].present?
-      subscribe(1, container)
-    else
-      if current_user.has_alert?(1, container)
-        current_user.alert_subscribes.where(notification_type: 1).first.destroy
-      end
-    end
-    if params['finish_box'].present?
-      subscribe(2, container)
-    else
-      if current_user.has_alert?(2, container)
-        current_user.alert_subscribes.where(notification_type: 2).first.destroy
-      end
-    end
+    containerUser = ContainersUser.where(user_id: params[:user_id], container_id: params[:container_id]).first
+    containerUser.update_attributes(alerts: subscribed_alerts)
     redirect_to line_index_path
   end
 

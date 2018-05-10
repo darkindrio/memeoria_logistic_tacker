@@ -1,0 +1,27 @@
+<div class = "container">
+  <h1><%=@stage.line.container.number%>- Alertas</h1>
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">Fecha</th>
+      <th scope="col"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <% modal_counter = 0 %>
+    <% @alerts.each do |alert| %>
+    <tr>
+      <td><%= alert.created_at %></td>
+      <td>
+        <%= button_tag(type: 'button', class: 'btn btn-primary', data: { toggle: 'modal', target: '#show_alert_modal_'+modal_counter.to_s } ) do %>
+            <i class="glyphicon glyphicon-modal-window"></i> Información
+        <% end %>
+      </td>
+    </tr>
+    <%= render :partial => 'shared/show_alert_modal', :locals => {:alert =>alert, :modal_counter => modal_counter} %>
+    <% modal_counter += 1 %>
+    <% end %>
+    </tbody>
+  </table>
+  <%= link_to 'Volver', stage_path(@stage), class: 'btn btn-default' %>
+</div>

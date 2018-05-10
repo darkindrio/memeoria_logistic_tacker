@@ -126,6 +126,11 @@ class ContainersController < ApplicationController
 
   end
 
+  def alert
+    @stage = Stage.find(params[:stage_id])
+    @alerts = AlertSubscribe.where(container_id: @stage.line.container.id )
+  end
+
   private
 
   def container_params

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180426030514) do
+ActiveRecord::Schema.define(version: 20180510191122) do
 
   create_table "alert_subscribes", force: :cascade do |t|
     t.integer  "user_id"
@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 20180426030514) do
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
     t.string   "notification_type"
+    t.string   "message"
     t.index ["container_id"], name: "index_alert_subscribes_on_container_id"
     t.index ["user_id"], name: "index_alert_subscribes_on_user_id"
   end
@@ -36,6 +37,7 @@ ActiveRecord::Schema.define(version: 20180426030514) do
   create_table "containers_users", force: :cascade do |t|
     t.integer "user_id"
     t.integer "container_id"
+    t.string  "alerts"
     t.index ["container_id"], name: "index_containers_users_on_container_id"
     t.index ["user_id"], name: "index_containers_users_on_user_id"
   end

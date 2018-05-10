@@ -1,0 +1,32 @@
+<div class="modal fade" id=<%="show_alert_modal_#{modal_counter}"%> role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class = "content">
+          <label> usuario:</label>
+          <%= alert.user.email %>
+        </div>
+        <div class = "content">
+          <label>Mensaje</label>
+          <%= alert.message %>
+        </div>
+        <div class="content">
+          <label>Tipo alerta</label>
+          <%= alert.notification_type %>
+        </div>
+        <div class="content">
+          <label>Fecha</label>
+          <%= alert.created_at %>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

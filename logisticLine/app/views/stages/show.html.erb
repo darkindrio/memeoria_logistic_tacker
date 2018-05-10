@@ -1,12 +1,27 @@
 <div class = "container">
-  <h1> Informacion de la etapa </h1>
-  <a href="#Foo" class="btn btn-default" data-toggle="collapse">Desplegar informacion de la etapa</a>
+  <h1><%= @stage.line.container.number %>- Informacion de la etapa </h1>
+  <div>
+    <a href="#Foo" class="btn btn-default" data-toggle="collapse">
+      <i class="glyphicon glyphicon-book"></i>  Desplegar informacion de la etapa
+    </a>
+  </div>
+  <div style="margin-top: 10px;margin-bottom: 10px;">
+    <a href="#Users" class="btn btn-default" data-toggle="collapse">
+      <i class="glyphicon glyphicon-user"></i>  Desplegar informacion de usuarios
+    </a>
+  </div>
+  <div>
+    <%= link_to stages_alerts_path(@stage), class: 'btn btn-default' do %>
+        <i class="glyphicon glyphicon-folder-open"></i> Ver historial de alertas
+  <% end %>
+  </div>
   <div id="Foo" class="collapse">
     <div class = "row">
       <div class = "col-md-12">
         <div class="panel panel-default">
           <div class="panel-heading clearfix">
             <h3 class="panel-title pull-left" style="padding-top: 7.5px;"><%= @stage.name %></h3>
+            <% container = @stage.line.container %>
             <% if can? :edit, State %>
                 <div class="btn-group pull-right">
                   <td>
@@ -48,10 +63,34 @@
       </div>
     </div>
   </div>
-  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-    Administrar usuarios
-  </button>
-
+  <div id="Users" class="collapse">
+    <div class = "row">
+      <div class = "col-md-6">
+        <% modal_counter = 0 %>
+        <% container.users.each do |user| %>
+          <div class = "well">
+            <div class = "row">
+              <div class = "col-md-4">
+                <%= user.email %>
+              </div>
+              <div class = "col-md-2">
+                <%= button_tag(type: 'button', class: 'btn btn-primary', data: { toggle: 'modal', target: '.subscribe_alert_modal_'+modal_counter.to_s } ) do %>
+                    <i class="glyphicon glyphicon-wrench"></i> Administrar notificaciones
+                <% end %>
+              </div>
+              <div class = "col-md-6"></div>
+            </div>
+          </div>
+          <%= render :partial => 'shared/subscribe_alerts_modal', :locals => {:container =>container, :user_id => user.id, :modal_counter => modal_counter} %>
+          <% modal_counter += 1 %>
+        <% end %>
+      </div>
+      <div class = "col-md-6"></div>
+    </div>
+    <button type="button" class="btn btn-primary" data-toggle="modal" style="margin-bottom: 20px;" data-target="#exampleModal">
+      Agregar o eliminar usuarios
+    </button>
+  </div>
   <!-- Modal -->
   <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -62,7 +101,6 @@
           </button>
         </div>
         <div class="modal-body">
-          <% container = @stage.line.container %>
           <h3> Agregar usuario</h3>
           <%= form_tag(add_user_to_container_path, method: "post") do %>
               <div class="field">
@@ -126,7 +164,10 @@
                   <% end %>
                 </div>
                 <div class = "col-md-4">
-                  <label>Transcurrido</label>
+                  <label>Duración</label>
+                  <% if state.get_state_duration %>
+                      <%=state.get_state_duration %> Hrs
+                  <% end %>
                 </div>
               </div>
             </div>
@@ -187,10 +228,14 @@
               </p>
             </div>
             <div class="panel-footer">
-              <button type="button" class="btn btn-info" data-toggle="modal" data-target=<%="#sub_states_modal_#{modal_counter}"%>>Ver flujo</button>
+              <button type="button" class="btn btn-info" data-toggle="modal" data-target=<%="#sub_states_modal_#{modal_counter}"%>>
+                <i class="glyphicon glyphicon-indent-left"></i>  Ver flujo
+              </button>
               <% if can? :edit, State %>
                   <button type="button" class="btn btn-primary" data-toggle="modal" data-target=<%="#state_alert_edit_modal_#{modal_counter}"%>>Alertas</button>
-                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target=<%="#next_state_modal_#{modal_counter}"%>>Siguente estado</button>
+                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target=<%="#next_state_modal_#{modal_counter}"%>>
+                    Siguente estado<i class="glyphicon glyphicon-share-alt"></i>
+                  </button>
               <% end %>
 
                 <%=button_tag(type: 'button', class: 'btn btn-default hidden-md hidden-lg go-up') do %>

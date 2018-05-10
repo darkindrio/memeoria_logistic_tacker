@@ -15,8 +15,17 @@ class User < ApplicationRecord
     self.role == requested_role.to_s
   end
 
-  def has_alert?(alert_type, container)
-    #!!alert_subscribes.where(notification_type: alert_type).where(container_id: container.id).first
+  def has_alert?(alert_type, container_id, user_id)
+    containerUser = ContainersUser.where(user_id: user_id, container_id: container_id).first
+    if containerUser and containerUser.alerts
+      alerts = containerUser.alerts.split(';')
+      alerts.each do |alert|
+        if alert == alert_type
+          return true
+        end
+      end
+      return false
+    end
   end
 
 end

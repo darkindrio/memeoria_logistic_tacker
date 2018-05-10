@@ -1,0 +1,2 @@
+class ContainersUser < ApplicationRecord
+end

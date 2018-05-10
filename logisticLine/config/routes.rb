@@ -15,4 +15,5 @@ Rails.application.routes.draw do
   get '/users/subscribe/:user_id/:container_id', to: 'users#subscribeAlert', as: 'user_subscribe'
   post '/containers/add_user', to: 'containers#AddUser', as: 'add_user_to_container'
   post '/containers/remove_user', to: 'containers#RemoveUser', as: 'remove_user_to_container'
+  get '/stages/:stage_id/alerts', to: 'containers#alert', as: 'stages_alerts'
 end

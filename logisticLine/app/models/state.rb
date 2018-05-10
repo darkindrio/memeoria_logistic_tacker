@@ -68,6 +68,13 @@ class State < ApplicationRecord
     end
   end
 
+  def get_state_duration
+    end_date = get_end_date
+    if end_date
+      return ((end_date-get_init_date ) / 3600).round(2)
+    end
+  end
+
   def has_next_state?()
     idxs = get_states_idxs
     self.idx != idxs.count

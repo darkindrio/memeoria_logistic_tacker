@@ -16,6 +16,11 @@
       <%= f.select(:alert, [['Peligro-rojo', "danger"], ['Precaucion-amarillo', "warning"], ['Normal-blanco', "normal"]], {},{ :class => 'form-control' }) %>
     </div>
 
+    <div class ="field">
+      <%= f.label :mensaje %><br>
+      <%= text_area_tag 'alert_message', nil, :size =>"25x10",  style: 'width: 100%;' %>
+    </div>
+
     <div class="actions">
       <%= f.submit "Editar alerta", :class => 'btn btn-primary'  %>
     </div>

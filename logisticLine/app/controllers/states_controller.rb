@@ -31,7 +31,8 @@ class StatesController < ApplicationController
   def update
     respond_to do |format|
       if @state.update(state_params)
-        format.html { redirect_to stage_path(id: @state.stage_id), notice: 'Alertacambiada con exito.' }
+        AlertSubscribe.create(user: current_user, container:@state.stage.line.container, notification_type: params['state']['alert'], message: params['alert_message'] )
+        format.html { redirect_to stage_path(id: @state.stage_id), notice: 'Alerta cambiada con éxito, registro guardado con éxito.' }
         format.json { render :show, status: :ok, location:@state }
       else
         format.html { render :edit }

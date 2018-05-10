@@ -1,5 +1,5 @@
 <div class = "container">
-  <h1>Contenedores</h1>
+  <h1>Mis contenedores</h1>
   <table class = "table">
     <thead>
     <tr>
@@ -15,14 +15,7 @@
           <% line = container.line %>
           <td><%= container.number %> </td>
           <td><%= link_to 'Ver contenedor', line,  class: "btn btn-info" %></td>
-          <td>
-            <%= button_tag(type: 'button', class: 'btn btn-primary', data: { toggle: 'modal', target: '.subscribe_alert_modal_'+modal_counter.to_s } ) do %>
-                <i class="glyphicon glyphicon-wrench"></i> Administrar notificaciones
-              <% end %>
-            </td>
         </tr>
-        <%= render :partial => 'shared/subscribe_alerts_modal', :locals => {:container =>container, :modal_counter => modal_counter} %>
-    <% modal_counter += 1 %>
     <% end %>
     </tbody>
   </table>

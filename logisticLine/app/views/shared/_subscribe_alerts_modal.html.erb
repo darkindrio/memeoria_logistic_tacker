@@ -6,30 +6,17 @@
         <h4 class="modal-title">Notificar cuando</h4>
       </div>
       <div class="modal-body">
-        <%=  form_for container, :url => user_subscribe_url(container_id: container.id, user_id: current_user.id),method: "get"  do |f| %>
-
+        <%=  form_for container, :url => user_subscribe_url(container_id: container.id, user_id: user_id),method: "get"  do |f| %>
             <div class="form-check" style="margin-top: 30px;">
-              <% if current_user.has_alert?(0,container) %>
-                  <%= check_box_tag :state_box, 1, true  %>
-              <% else %>
-                  <%= check_box_tag :state_box%>
-              <% end %>
+              <%= check_box_tag 'notifications[]', 'state', current_user.has_alert?('state',container.id, user_id)%>
               <label class="form-check-label" for="exampleCheck1">Pasar estado</label>
             </div>
             <div class="form-check" style="margin-top: 30px;">
-              <% if current_user.has_alert?(1, container) %>
-                <%= check_box_tag :alert_box, 1, true%>
-              <% else %>
-                <%= check_box_tag :alert_box%>
-              <% end %>
+                <%= check_box_tag 'notifications[]', 'alert', current_user.has_alert?('alert',container.id, user_id)%>
               <label class="form-check-label" for="exampleCheck1">Cambio de alerta</label>
             </div>
             <div class="form-check" style="margin-top: 30px;">
-              <% if current_user.has_alert?(2, container) %>
-                  <%= check_box_tag :finish_box, 1, true%>
-              <% else %>
-                <%= check_box_tag :finish_box%>
-              <% end %>
+                <%= check_box_tag 'notifications[]', 'finish', current_user.has_alert?('finish',container.id, user_id)%>
               <label class="form-check-label" for="exampleCheck1">Fin proceso</label>
             </div>
             <%= f.submit 'Guardar cambios', :class => 'btn btn-primary' %>
