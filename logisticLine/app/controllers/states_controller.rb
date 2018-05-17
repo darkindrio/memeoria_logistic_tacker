@@ -38,7 +38,7 @@ class StatesController < ApplicationController
   def change_duration
     respond_to do |format|
       if @state.update(state_params)
-        format.html { redirect_to stage_path(id: @state.stage_id), notice: 'Shrek 4' }
+        format.html { redirect_to stage_path(id: @state.stage_id), notice: 'Estado actualizado con éxito' }
         format.json { render :show, status: :ok, location:@state }
       else
         format.html { render :edit }
