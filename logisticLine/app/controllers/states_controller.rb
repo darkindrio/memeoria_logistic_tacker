@@ -1,6 +1,6 @@
 class StatesController < ApplicationController
 
-  before_action :set_state, only: [:update, :destroy, :next_state]
+  before_action :set_state, only: [:update, :destroy, :next_state, :change_duration]
 
   def show
     @state = State.find(params['id'])
@@ -25,7 +25,26 @@ class StatesController < ApplicationController
       end
       stage.save
     end
+    stage = @state.stage
+    if stage.is_stage_finish?
+      line = stage.line
+      if stage.idx < line.stages.count
+        RecordState.create(stage: line.stages[stage.idx], state:  line.stages[stage.idx].states[0])
+      end
+    end
     redirect_to stage_path(id: @state.stage_id), notice: 'Se ha cambiado el estado.'
+  end
+
+  def change_duration
+    respond_to do |format|
+      if @state.update(state_params)
+        format.html { redirect_to stage_path(id: @state.stage_id), notice: 'Shrek 4' }
+        format.json { render :show, status: :ok, location:@state }
+      else
+        format.html { render :edit }
+        format.json { render json: @state.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   def update
@@ -52,7 +71,7 @@ class StatesController < ApplicationController
   end
 
   def state_params
-    params.require(:state).permit(:alert)
+    params.require(:state).permit(:alert, :duration)
   end
 
 

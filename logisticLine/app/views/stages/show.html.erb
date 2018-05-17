@@ -1,5 +1,5 @@
 <div class = "container">
-  <h1><%= @stage.line.container.number %>- Informacion de la etapa </h1>
+  <h1><%= link_to @stage.line.container.number, line_path(@stage.line)%>- Informacion de la etapa </h1>
   <div>
     <a href="#Foo" class="btn btn-default" data-toggle="collapse">
       <i class="glyphicon glyphicon-book"></i>  Desplegar informacion de la etapa
@@ -22,7 +22,7 @@
           <div class="panel-heading clearfix">
             <h3 class="panel-title pull-left" style="padding-top: 7.5px;"><%= @stage.name %></h3>
             <% container = @stage.line.container %>
-            <% if can? :edit, State %>
+            <% if can? :edit, Container %>
                 <div class="btn-group pull-right">
                   <td>
                     <%= link_to  "www", class: "btn btn-primary" do %>
@@ -50,12 +50,6 @@
               </div>
 
               <div class = "col-md-4">
-                <p>
-                  <strong>Numero actores: </strong> 5
-                </p>
-                <p>
-                  <strong>Numero procesos:</strong> 5
-                </p>
               </div>
             </div>
           </div>
@@ -101,7 +95,7 @@
         <% is_current_state = true %>
         <% states.each do |state| %>
           <div class="panel panel-default" style="margin-bottom: 0px;text-align:center;">
-            <div class="panel-body goToState finish-<%=state.is_finish?(state.st_machine) %>"   id = "state-<%= modal_counter %>"  >
+            <div class="panel-body goToState finish-<%=state.is_finish?(state.st_machine) %>" id = "state-<%= modal_counter %>" style = "padding-top: 0px;padding-bottom: 0px;"  >
               <% if state.is_finish?(state.st_machine) %>
                 <%= state.name %> <i class="glyphicon glyphicon-ok"></i>
               <% else %>
@@ -112,7 +106,7 @@
                       <%= state.name %>
                   <% end %>
               <% end %>
-              <hr>
+              <hr style="margin-top: 10px;margin-bottom: 10px;">
               <div class = "row">
                 <div class = "col-md-4">
                   <label>inicio</label>
@@ -150,8 +144,19 @@
     <% modal_counter = 1 %>
     <% @stage.states.each do |state| %>
         <div class = "col-md-4">
+          <div class = "row" style="height: 20px;">
+            <div class="col-md-6 col-md-offset-3" style = "height: 20px;">
+              <div class="panel panel-default" style="height: 20px;">
+                <div style="text-align: center; position: relative;bottom: 15px;" class= "panel-body" >
+                  <i class="glyphicon glyphicon-certificate safe-<%= state.alert %>"></i>
+                  <i class="glyphicon glyphicon-certificate warning-<%= state.alert %>"></i>
+                  <i class="glyphicon glyphicon-certificate danger-<%= state.alert %>"></i>
+                </div>
+              </div>
+            </div>
+          </div>
           <div class="panel panel-default" id = "state-<%=modal_counter%>-state" >
-            <div class="panel-heading">
+            <div class="panel-heading" style="height: 55px">
               <h3 class="panel-title"><%= state.name %></h3>
             </div>
             <div class = "row">
@@ -168,27 +173,12 @@
                 </div>
               </div>
             </div>
-
-            <div class = "row">
-              <div class="col-md-8 col-md-offset-2 ">
-                <h3>Alertas </h3>
-                <div class="panel panel-default">
-                  <div style="text-align: center" class= "panel-body" >
-                    <i class="glyphicon glyphicon-certificate normal-gly safe-<%= state.alert %>"></i>
-                    <i class="glyphicon glyphicon-certificate normal-gly warning-<%= state.alert %>"></i>
-                    <i class="glyphicon glyphicon-certificate normal-gly danger-<%= state.alert %>"></i>
-                  </div>
+            <div class="panel-body" style="padding-top: 0px;" >
+              <div class = "row">
+                <div class="col-md-8 col-md-offset-2" >
+                  <%= render :partial => 'states/change_duration_form', :locals => {:state => state, :@stage => @stage} %>
                 </div>
               </div>
-            </div>
-
-            <div class="panel-body" >
-              <p>
-                <strong>Numero actores: </strong> <%= state.n_actors %>
-              </p>
-              <p>
-                <strong>Numero procesos:</strong> <%= state.n_sub_process %>
-              </p>
             </div>
             <div class="panel-footer">
               <button type="button" class="btn btn-info" data-toggle="modal" data-target=<%="#sub_states_modal_#{modal_counter}"%>>
@@ -196,14 +186,17 @@
               </button>
               <% if can? :edit, State %>
                   <button type="button" class="btn btn-primary" data-toggle="modal" data-target=<%="#state_alert_edit_modal_#{modal_counter}"%>>Alertas</button>
-                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target=<%="#next_state_modal_#{modal_counter}"%>>
-                    Siguente estado<i class="glyphicon glyphicon-share-alt"></i>
-                  </button>
-              <% end %>
+                  <% if state.is_prev_state_finish? and !state.is_finish?(state.st_machine) %>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target=<%="#next_state_modal_#{modal_counter}"%> >
+                      Siguente estado<i class="glyphicon glyphicon-share-alt"></i>
+                    </button>
+                  <% else %>
+                      <button type="button" class="btn btn-primary" data-toggle="modal" data-target=<%="#next_state_modal_#{modal_counter}"%> disabled>
+                        Siguente estado<i class="glyphicon glyphicon-share-alt"></i>
+                      </button>
+                  <% end %>
 
-                <%=button_tag(type: 'button', class: 'btn btn-default hidden-md hidden-lg go-up') do %>
-                    <i class="glyphicon glyphicon-arrow-up"></i>Volver
-                <% end %>
+              <% end %>
 
 
               <%= render :partial => 'sub_state_modal', :locals => {:state => state, :modal_counter => modal_counter} %>
@@ -215,8 +208,14 @@
           </div>
         </div>
         <% modal_counter += 1 %>
+         <div class = "content">
+           <%=button_tag(type: 'button', class: 'btn btn-default hidden-md hidden-lg go-up', style: 'display: block; margin: 0 auto;') do %>
+               <i class="glyphicon glyphicon-arrow-up"></i>Volver
+           <% end %>
+         </div>
+        <div id = "goo"></div>
     <%end%>
-    <div id = "goo"></div>
+
   </div>
 </div>
 <script>

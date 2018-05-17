@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180510215716) do
+ActiveRecord::Schema.define(version: 20180517182145) do
 
   create_table "alert_subscribes", force: :cascade do |t|
     t.integer  "user_id"
@@ -73,6 +73,7 @@ ActiveRecord::Schema.define(version: 20180510215716) do
     t.string   "description"
     t.integer  "n_actors"
     t.integer  "n_process"
+    t.integer  "idx"
     t.index ["line_id"], name: "index_stages_on_line_id"
   end
 
@@ -88,6 +89,7 @@ ActiveRecord::Schema.define(version: 20180510215716) do
     t.string   "alert"
     t.string   "st_machine"
     t.integer  "idx"
+    t.integer  "duration"
     t.index ["stage_id"], name: "index_states_on_stage_id"
   end
 

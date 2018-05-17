@@ -1,0 +1,7 @@
+<%=  form_for state, :url => state_change_duration_path(@stage,state),method: "post"  do |f| %>
+    <div class="field">
+      <%= f.label :duration, 'Duración en horas', style: 'text-align:center;display: block; margin: 0 auto;' %>
+      <%= f.text_field :duration, class: "form-control", style: 'width: 20%;display: block; margin: 0 auto;' %>
+    </div>
+    <%= f.submit 'Cambiar duración', :class => 'btn btn-primary', :style => 'display: block; margin: 0 auto;' %>
+<% end %>

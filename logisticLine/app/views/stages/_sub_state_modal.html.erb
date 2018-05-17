@@ -7,7 +7,7 @@
         <h4 class="modal-title"><%= state.name %></h4>
       </div>
       <div class="modal-body">
-        <% sub_states = state.get_state_machine_name(state.name) %>
+        <% sub_states = state.get_state_machine_name(state.st_machine) %>
         <% last_state = state.get_last_state(state.st_machine)[0] %>
         <% sub_states.each do |sub_state| %>
             <div class = "row">
