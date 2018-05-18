@@ -4,7 +4,12 @@ class LineController < ApplicationController
   # GET /lines
   # GET /lines.json
   def index
-    @container = current_user.containers
+    if params[:search]
+      @container = Container.where('number LIKE ?', "%#{params[:search]}%")
+    else
+      @container = current_user.containers
+    end
+
   end
 
   # GET /lines/1

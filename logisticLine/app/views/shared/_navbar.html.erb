@@ -14,8 +14,10 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
+        <% if current_user %>
         <li class="<%= active_class(line_index_path) %>"><%= link_to('Lista contenedores', line_index_path, method: :get) %></li>
         <li class="<%= active_class(line_data_path) %>"><%= link_to('Estadisticas', line_data_path(id: 2), method: :get) %></li>
+            <% end %>
         <% if user_signed_in? %>
           <% if can? :edit, User %>
               <li class="<%= active_class(users_index_path) %>"><%= link_to('Administrar usuarios', users_index_path, method: :get) %> </li>
@@ -32,12 +34,14 @@
           </li>
         <% end %>
       </ul>
-      <form class="navbar-form navbar-left">
+      <% if current_user %>
+      <form class="navbar-form navbar-left" action="/line">
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="Ej: 5655599556">
+          <input type="text" name="search" class="form-control" placeholder="Ej: 5655599556">
         </div>
         <button type="submit" class="btn btn-default">Buscar contenedor</button>
       </form>
+          <% end %>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
