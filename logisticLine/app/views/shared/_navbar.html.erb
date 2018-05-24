@@ -10,7 +10,6 @@
       </button>
       <a class="navbar-brand" href="/line">Flow Track</a>
     </div>
-
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
@@ -25,11 +24,9 @@
           <li  class="dropdown <%= active_class(edit_user_registration_path) %>">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Mi cuenta <span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li><%= link_to('Informacion', show_user_info_path) %></li>
               <li><%= link_to "Editar cuenta", edit_user_registration_path %></li>
               <li role="separator" class="divider"></li>
               <li><%= link_to('Logout', destroy_user_session_path, method: :delete) %> </li>
-
             </ul>
           </li>
         <% end %>

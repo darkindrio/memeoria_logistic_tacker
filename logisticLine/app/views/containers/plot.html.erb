@@ -29,7 +29,7 @@
             var chartwidth = $('#chartparent').width();
             var title = "Etapa actual"
             if ((counter % 2) == 1){
-                title = "Hitorico"
+                title = "Histórico"
             }
             var options = {'title':title,
                 'width':chartwidth,
@@ -95,7 +95,7 @@
 
   <body>
   <h1>Número contenedor: <%= @container.number %></h1>
-  <button onclick="myFunction()">Reload page</button>
+  <button onclick="myFunction()" class="btn btn-primary">Cargar gráficos</button>
   <% div_counter = 0 %>
   <% alert_counter = 0%>
   <% @container.line.stages.each do |stage| %>
@@ -123,8 +123,11 @@
   <% end %>
   <!--Div that will hold the pie chart-->
   <div class = "row" >
+    <h1> Resumen </h1>
     <div class = "col-md-12">
-      <div id="columnchart_values" ></div>
+      <div class = "well">
+        <div id="columnchart_values" ></div>
+      </div>
     </div>
   </div>
 

@@ -15,7 +15,15 @@ class UsersController < ApplicationController
   end
 
   def update
-
+    respond_to do |format|
+      if @user.update(user_params)
+        format.html { redirect_to users_index_path, notice: 'Usuario actualizado con éxito' }
+        format.json { render :show, status: :ok, location:@state }
+      else
+        format.html { render edit_user_as_admin_path(@user)}
+        format.json { render json:@user.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   def data
@@ -47,5 +55,8 @@ class UsersController < ApplicationController
 
   def set_line
     @user = User.find(params[:user_id])
+  end
+  def user_params
+    params.require(:user).permit(:email, :role)
   end
 end

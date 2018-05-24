@@ -223,15 +223,6 @@ class ContainersController < ApplicationController
 
     ]
 
-
-    @kal = [
-        ['Genre', 'Fantasy & Sci Fi', 'Romance', 'Mystery/Crime', 'General',
-         'Western', 'Literature' ],
-        ['2010', 10, 24, 20, 32, 0, 5, ''],
-        ['2020', 16, 22, 23, 30, 16, 9, ''],
-        ['2030', 28, 19, 29, 30, 12, 13, '']
-    ]
-
     @container = Container.find(params[:container_id])
     @data = []
     states_names = []
@@ -284,32 +275,6 @@ class ContainersController < ApplicationController
 
 
     @alerts = []
-    @alert1 =[
-        ['Month', 'Bolivia', 'Ecuador', 'Madagascar',  'Media Historica'],
-        ['2004/05',  165,      938,         522,                  614.6],
-        ['2005/06',  135,      1120,        599,                  682],
-        ['2006/07',  157,      1167,        587,                   623]
-
-    ]
-    @alert2 =[
-        ['Month', 'Bolivia', 'Ecuador', 'Madagascar',  'Media Historica'],
-        ['2004/05',  165,      938,         522,                  614.6],
-        ['2005/06',  135,      1120,        599,                  682],
-        ['2006/07',  157,      1167,        587,                   623]
-
-    ]
-    @alert3 =[
-        ['Month', 'Bolivia', 'Ecuador', 'Madagascar',  'Media Historica'],
-        ['2004/05',  165,      938,         522,                  614.6],
-        ['2005/06',  135,      1120,        599,                  682],
-        ['2006/07',  157,      1167,        587,                   623]
-
-    ]
-    @alerts << @alert1
-    @alerts << @alert2
-    @alerts << @alert3
-
-
     @total_alerts = []
     header = ['Aletas', 'Peligro', 'Precaucion', 'Normal', 'Avg']
 
