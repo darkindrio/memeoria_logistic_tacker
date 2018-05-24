@@ -1,0 +1,7 @@
+<h1>Nueva alerta <%= @alert.container.number %></h1>
+<p> Ha ocurrido una alerta en el contenedor : <%= @alert.container.number %></p>
+<p>Datos de la alerta :</p>
+<p>Fecha: <%= @alert.created_at %></p>
+<p>Tipo alerta: <%= @alert.message %></p>
+<p>Estado: <%= @alert.state.name %></p>
+<p>Mensaje: <%= @alert.message %></p>
