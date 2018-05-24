@@ -12,5 +12,5 @@ class UserMailer < ApplicationMailer
     @alert =alert
     mail(to:'and31234@gmail.com', subject: 'Alerta')
   end
-  
+
 end
