@@ -50,6 +50,7 @@ class StatesController < ApplicationController
   def update
     respond_to do |format|
       if @state.update(state_params)
+        UserMailer.welcome_email.deliver_now
         AlertSubscribe.create(user: current_user,
                               container:@state.stage.line.container,
                               notification_type: params['state']['alert'],

@@ -51,6 +51,11 @@ class UsersController < ApplicationController
     redirect_to line_index_path
   end
 
+  def test
+    UserMailer.with(user: @user).welcome_email.deliver_now
+
+  end
+
   private
 
   def set_line
