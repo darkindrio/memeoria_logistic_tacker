@@ -213,6 +213,152 @@ class ContainersController < ApplicationController
     redirect_to stage_path(params['stage_id']) ,notice: 'Se ha agregado el usuario '+ user.email
   end
 
+  def plot
+    @test = [
+        ['Mushrooms', 3.8],
+        ['Onions', 1.7],
+        ['Olives', 1],
+        ['Zucchini', 1],
+        ['Pepperoni', 2]
+
+    ]
+
+
+    @kal = [
+        ['Genre', 'Fantasy & Sci Fi', 'Romance', 'Mystery/Crime', 'General',
+         'Western', 'Literature' ],
+        ['2010', 10, 24, 20, 32, 0, 5, ''],
+        ['2020', 16, 22, 23, 30, 16, 9, ''],
+        ['2030', 28, 19, 29, 30, 12, 13, '']
+    ]
+
+    @container = Container.find(params[:container_id])
+    @data = []
+    states_names = []
+    states_names << 'Genre'
+    stages_duration = []
+    @container.line.stages.each do |stage|
+      stage_data = []
+      aux_stage_duration = []
+      stage.states.each do |state|
+        state_data = []
+        state_data << state.name
+        states_names << state.name
+        records =  RecordState.where(state_id: state.id)
+        if records and records.count > 1
+          duration = ((records[1].created_at - records[0].created_at)/3600).round(2)
+          state_data << duration
+          aux_stage_duration << duration
+        else
+          state_data << 1
+          aux_stage_duration << 1
+        end
+        stage_data << state_data
+      end
+      @data << stage_data
+      @data << @test
+      stages_duration << aux_stage_duration
+    end
+
+
+
+    array_vero_1 = Array.new(stages_duration[0].count , 0)
+    array_vero_2 = Array.new(stages_duration[1].count , 0)
+    array_vero_3 = Array.new(stages_duration[2].count , 0)
+
+    arr_1 = stages_duration[0] + array_vero_2 + array_vero_3
+    arr_1.unshift('Etapa maritima')
+    arr_1 << ''
+    arr_2 = array_vero_1 + stages_duration[1] + array_vero_3
+    arr_2.unshift('Etapa aduana')
+    arr_2 << ''
+    arr_3 = array_vero_1 + array_vero_2 + stages_duration[2]
+    arr_3.unshift('Etapa terrestre')
+    arr_3 << ''
+
+    @summary_data = []
+    @summary_data << states_names
+    @summary_data << arr_1
+    @summary_data << arr_2
+    @summary_data << arr_3
+
+
+    @alerts = []
+    @alert1 =[
+        ['Month', 'Bolivia', 'Ecuador', 'Madagascar',  'Media Historica'],
+        ['2004/05',  165,      938,         522,                  614.6],
+        ['2005/06',  135,      1120,        599,                  682],
+        ['2006/07',  157,      1167,        587,                   623]
+
+    ]
+    @alert2 =[
+        ['Month', 'Bolivia', 'Ecuador', 'Madagascar',  'Media Historica'],
+        ['2004/05',  165,      938,         522,                  614.6],
+        ['2005/06',  135,      1120,        599,                  682],
+        ['2006/07',  157,      1167,        587,                   623]
+
+    ]
+    @alert3 =[
+        ['Month', 'Bolivia', 'Ecuador', 'Madagascar',  'Media Historica'],
+        ['2004/05',  165,      938,         522,                  614.6],
+        ['2005/06',  135,      1120,        599,                  682],
+        ['2006/07',  157,      1167,        587,                   623]
+
+    ]
+    @alerts << @alert1
+    @alerts << @alert2
+    @alerts << @alert3
+
+
+    @total_alerts = []
+    header = ['Aletas', 'Peligro', 'Precaucion', 'Normal', 'Avg']
+
+    all_alerts = AlertSubscribe.all
+    n_total_alerts = all_alerts.count
+    n_total_warnings = all_alerts.select{|o| o.notification_type == "warning"}.count
+    n_total_danger = all_alerts.select{|o| o.notification_type == "danger"}.count
+    n_total_normal = all_alerts.select{|o| o.notification_type == "normal"}.count
+
+    @container.line.stages.each do |stage|
+      stage_alerts = []
+      stage_alerts << header
+      stage.states.each do |state|
+        alert_data = []
+        alert_data << state.name
+        state_alerts = AlertSubscribe.where(state_id: state.id)
+        total_state_alert = AlertSubscribe.joins(:state).where('states.name' => state.name).group(:id).length
+        if state_alerts.count > 0
+          puts state.name
+          puts state.id
+          n_danger = state_alerts.select{|o| o.notification_type == "danger"}.count
+          n_warning = state_alerts.select{|o| o.notification_type == "warning"}.count
+          n_normal = state_alerts.select{|o| o.notification_type == "normal"}.count
+          alert_data << n_danger
+          alert_data << n_normal
+          alert_data << n_warning
+
+          alert_data << state_alerts.count / total_state_alert
+        else
+          alert_data = alert_data + Array.new(3 , 0)
+          alert_data << 0
+        end
+        stage_alerts << alert_data
+      end
+      @total_alerts << stage_alerts
+    end
+
+
+
+
+
+
+
+
+
+
+
+  end
+
   def RemoveUser
     container = Container.find(params['container_id'])
     user = User.find(params['users_delete']['user_id'])

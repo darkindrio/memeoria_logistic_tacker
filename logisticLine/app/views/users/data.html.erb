@@ -1,15 +1,36 @@
-<div class = "container">
-  <div class="row">
-    <div class = "col-md-6">
-      <%= image_tag "tab-3.png",  :style => "width: 100%;" %>
-    </div>
-    <div class = "col-md-6">
-      <%= image_tag "tab-2.png", :style => "width: 100%;" %>
-    </div>
+<html>
+<div class ="container">
+
+  <div class = "container">
+    <h1>Mis contenedores</h1>
+    <table class = "table">
+      <thead>
+      <tr>
+        <th> Nombre</th>
+        <th colspan="3"></th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <% modal_counter = 0 %>
+      <% @container.each do |container| %>
+          <tr>
+            <% line = container.line %>
+            <td><%= container.number %> </td>
+            <td><%= link_to 'Ver contenedor', plot_container_path(container),  class: "btn btn-info" %></td>
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
+    <% if can? :edit, Line %>
+        <%= link_to 'Crear contenedor', new_containers_path, class: "btn btn-primary" %>
+        <br>
+    <% end %>
+
   </div>
-  <div class = "row">
-    <div class = "col-md-12">
-      <%= image_tag "tab-1.png", :style => "width: 100%;" %>
-    </div>
-  </div>
+
+
+
 </div>
+
+</html>

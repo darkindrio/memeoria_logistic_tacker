@@ -1,0 +1,132 @@
+<div class = "container">
+  <head>
+    <!--Load the AJAX API-->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+
+        // Load the Visualization API and the corechart package.
+        google.charts.load('current', {'packages':['corechart']});
+
+        // Set a callback to run when the Google Visualization API is loaded.
+        google.charts.setOnLoadCallback(drawChart);
+        google.charts.setOnLoadCallback(test);
+        google.charts.setOnLoadCallback(drawVisualization);
+
+
+        // Callback that creates and populates a data table,
+        // instantiates the pie chart, passes in the data and
+        // draws it.
+        function drawChart() {
+          var counter = 0;
+          <% @data.each do |d| %>
+            var div_id = 'chart_div_'+counter
+            // Create the data table.
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Topping');
+            data.addColumn('number', 'Slices');
+            data.addRows(<%= d.inspect.html_safe %>);
+            // Set chart options
+            var chartwidth = $('#chartparent').width();
+            var title = "Etapa actual"
+            if ((counter % 2) == 1){
+                title = "Hitorico"
+            }
+            var options = {'title':title,
+                'width':chartwidth,
+                'height':300};
+
+            // Instantiate and draw our chart, passing in some options.
+            var chart = new google.visualization.PieChart(document.getElementById(div_id));
+            chart.draw(data, options);
+            counter ++;
+          <% end %>
+        }
+
+
+        function test() {
+            var aux = <%= @summary_data.inspect.html_safe %>
+            var aux_role = { role: 'annotation' };
+            aux[0].push(aux_role);
+            var data = google.visualization.arrayToDataTable(aux);
+            var chartwidth = $('#chartparent').width();
+            var options = {
+                width: chartwidth,
+                height: 400,
+                bar: { groupWidth: '75%' },
+                legend: {position: 'none'},
+                isStacked: true,
+            };
+
+          var view = new google.visualization.DataView(data);
+          var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
+          chart.draw(view, options);
+        }
+
+        function drawVisualization() {
+            var counter = 0;
+            console.log(<%= @alerts.inspect.html_safe %>);
+            console.log(<%= @total_alerts.inspect.html_safe %>);
+            <% @total_alerts.each do |alert| %>
+              var div_id = 'chart_alert_div_'+counter
+              // Some raw data (not necessarily accurate)
+              var data = google.visualization.arrayToDataTable(<%= alert.inspect.html_safe %>);
+
+              var options = {
+                  title : 'Alertas',
+                  vAxis: {title: 'Numero alertas'},
+                  hAxis: {title: 'Estados'},
+                  seriesType: 'bars',
+                  series: {3: {type: 'line'}}
+              };
+
+              var chart = new google.visualization.ComboChart(document.getElementById(div_id));
+              chart.draw(data, options);
+            counter ++;
+            <% end %>
+
+        }
+
+
+        function myFunction() {
+            location.reload();
+        }
+    </script>
+  </head>
+
+  <body>
+  <h1>Número contenedor: <%= @container.number %></h1>
+  <button onclick="myFunction()">Reload page</button>
+  <% div_counter = 0 %>
+  <% alert_counter = 0%>
+  <% @container.line.stages.each do |stage| %>
+    <h3>Etapa : <%= stage.name %></h3>
+      <div class = "well">
+        <div class = "row">
+          <div class = "col-md-6">
+            <div  id="chart_div_<%= div_counter %>"></div >
+          </div>
+          <div class = "col-md-6">
+            <div  id="chart_div_<%= div_counter + 1 %>"></div >
+          </div>
+          <div class = "col-md-12">
+            <div id="top_x_div"></div>
+          </div>
+        </div>
+        <div class = row >
+          <div class = "col-md-12">
+            <div id="chart_alert_div_<%= alert_counter %>" ></div>
+          </div>
+        </div>
+      </div>
+    <% div_counter += 2 %>
+      <% alert_counter += 1%>
+  <% end %>
+  <!--Div that will hold the pie chart-->
+  <div class = "row" >
+    <div class = "col-md-12">
+      <div id="columnchart_values" ></div>
+    </div>
+  </div>
+
+  </body>
+</div>

@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   post '/containers/remove_user', to: 'containers#RemoveUser', as: 'remove_user_to_container'
   get '/stages/:stage_id/alerts', to: 'containers#alert', as: 'stages_alerts'
   post 'stages/:stage_id/change_duration/:state_id', to: 'states#change_duration', as:'state_change_duration'
+  get 'containers/show_plot/:container_id', to: 'containers#plot', as: 'plot_container'
 
   root to: 'line#index'
 end
