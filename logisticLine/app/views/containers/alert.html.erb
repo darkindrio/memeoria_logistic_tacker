@@ -4,6 +4,8 @@
     <thead>
     <tr>
       <th scope="col">Fecha</th>
+      <th scope = "col">Tipo</th>
+      <th scope="col">Estado</th>
       <th scope="col"></th>
     </tr>
     </thead>
@@ -11,7 +13,9 @@
     <% modal_counter = 0 %>
     <% @alerts.each do |alert| %>
     <tr>
-      <td><%= alert.created_at %></td>
+      <td><%= alert.created_at.strftime('%F/%H:%M') %></td>
+      <td><span class="label label-<%= alert.alert_class %>"><%=alert.human_alert %></span></td>
+      <td><%= alert.state.name %></td>
       <td>
         <%= button_tag(type: 'button', class: 'btn btn-primary', data: { toggle: 'modal', target: '#show_alert_modal_'+modal_counter.to_s } ) do %>
             <i class="glyphicon glyphicon-modal-window"></i> Información

@@ -14,9 +14,13 @@
         <tr>
           <% line = container.line %>
           <td><%= container.number %> </td>
-          <td><%= link_to 'Ver estadisticas', line,  class: "btn btn-info" %></td>
+          <td><%= link_to 'Ver contenedor', line,  class: "btn btn-info" %></td>
         </tr>
     <% end %>
     </tbody>
   </table>
+  <% if can? :edit, Line %>
+      <%= link_to 'Crear contenedor', new_containers_path, class: "btn btn-primary" %>
+      <br>
+  <% end %>
 </div>

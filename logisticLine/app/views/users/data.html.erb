@@ -17,15 +17,12 @@
           <tr>
             <% line = container.line %>
             <td><%= container.number %> </td>
-            <td><%= link_to 'Ver contenedor', plot_container_path(container),  class: "btn btn-info" %></td>
+            <td><%= link_to 'Ver estadisticas', plot_container_path(container),  class: "btn btn-info" %></td>
           </tr>
       <% end %>
       </tbody>
     </table>
-    <% if can? :edit, Line %>
-        <%= link_to 'Crear contenedor', new_containers_path, class: "btn btn-primary" %>
-        <br>
-    <% end %>
+
 
   </div>
 
