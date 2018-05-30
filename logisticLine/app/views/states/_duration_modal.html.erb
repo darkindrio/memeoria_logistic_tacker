@@ -1,0 +1,15 @@
+<div class="modal" id = "duration_<%= modal_counter %>" role="dialog">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title"><%= state.name %></h4>
+      </div>
+      <div class="modal-body">
+        <%= render :partial => 'states/change_duration_form', :locals => {:state => state, :@stage => @stage} %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>

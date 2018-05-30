@@ -32,3 +32,10 @@
   background-color: #999999 !important;
 }
 
+@media only screen and (max-width: 600px) {
+  .duration_button{
+    bottom: 20px;
+  }
+
+}
+

@@ -150,7 +150,7 @@
     <% @stage.states.each do |state| %>
         <div class = "col-md-4">
           <div class = "row" style="height: 20px;">
-            <div class="col-md-6 col-md-offset-3" style = "height: 20px;">
+            <div class="col-md-6" style = "height: 20px;">
               <div class="panel panel-default" style="height: 20px;">
                 <div style="text-align: center; position: relative;bottom: 15px;" class= "panel-body" >
                   <i class="glyphicon glyphicon-certificate safe-<%= state.alert %>"></i>
@@ -158,6 +158,11 @@
                   <i class="glyphicon glyphicon-certificate danger-<%= state.alert %>"></i>
                 </div>
               </div>
+            </div>
+            <div class = "col-md-6 duration_button" align="right" style = "height: 20px;">
+              <button type="button" class="btn btn-primary" style="height: 20px;padding-top: 1px;" data-toggle="modal" data-target=<%="#duration_#{modal_counter}"%>>
+                <i class="glyphicon glyphicon-time"></i>
+              </button>
             </div>
           </div>
           <div class="panel panel-default" id = "state-<%=modal_counter%>-state" >
@@ -175,13 +180,6 @@
                       No definido
                     <% end %>
                   </div>
-                </div>
-              </div>
-            </div>
-            <div class="panel-body" style="padding-top: 0px;" >
-              <div class = "row">
-                <div class="col-md-8 col-md-offset-2" >
-                  <%= render :partial => 'states/change_duration_form', :locals => {:state => state, :@stage => @stage} %>
                 </div>
               </div>
             </div>
@@ -207,6 +205,7 @@
               <%= render :partial => 'sub_state_modal', :locals => {:state => state, :modal_counter => modal_counter} %>
               <%= render :partial => 'state_alert_modal', :locals => {:state => state, :modal_counter => modal_counter} %>
               <%= render :partial => 'states/next_state_modal', :locals => {:state => state, :modal_counter => modal_counter} %>
+              <%= render :partial => 'states/duration_modal', :locals => {:state => state, :modal_counter => modal_counter, :@stage => @stage} %>
 
             </div>
 
