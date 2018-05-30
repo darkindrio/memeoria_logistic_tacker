@@ -10,7 +10,7 @@ class UserMailer < ApplicationMailer
   def alert(user, alert)
     @user = user
     @alert =alert
-    mail(to:'and31234@gmail.com', subject: 'Alerta')
+    mail(to:@user.email, subject: 'Alerta')
   end
 
   def change_state(user, state)
