@@ -13,4 +13,10 @@ class UserMailer < ApplicationMailer
     mail(to:'and31234@gmail.com', subject: 'Alerta')
   end
 
+  def change_state(user, state)
+    @user = user
+    @state = state
+    mail(to:'and31234@gmail.com', subject: 'Cambio de estado')
+  end
+
 end

@@ -1,5 +1,8 @@
 class StatesController < ApplicationController
 
+  include StatesHelper
+
+
   before_action :set_state, only: [:update, :destroy, :next_state, :change_duration]
 
   def show
@@ -24,6 +27,9 @@ class StatesController < ApplicationController
         stage.records << nextState
       end
       stage.save
+
+      send_email(@state.stage.line.container.id)
+
     end
     stage = @state.stage
     if stage.is_stage_finish?
@@ -55,7 +61,8 @@ class StatesController < ApplicationController
                               notification_type: params['state']['alert'],
                               message: params['alert_message'],
                               state: @state)
-        UserMailer.alert(User.last, AlertSubscribe.last)
+        #UserMailer.alert(User.last, AlertSubscribe.last)
+        send_alert_email(@state.stage.line.container.id, @state.id)
         format.html { redirect_to stage_path(id: @state.stage_id), notice: 'Alerta cambiada con éxito, registro guardado con éxito.' }
         format.json { render :show, status: :ok, location:@state }
       else

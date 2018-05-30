@@ -53,7 +53,6 @@ class UsersController < ApplicationController
 
   def test
     UserMailer.with(user: @user).welcome_email.deliver_now
-
   end
 
   private
