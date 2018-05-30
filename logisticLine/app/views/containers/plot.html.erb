@@ -52,6 +52,8 @@
             var options = {
                 width: chartwidth,
                 height: 400,
+                vAxis: {title: 'Duración estados'},
+                hAxis: {title: 'Etapas'},
                 bar: { groupWidth: '75%' },
                 legend: {position: 'none'},
                 isStacked: true,
@@ -96,6 +98,15 @@
   <body>
   <h1>Número contenedor: <%= @container.number %></h1>
   <button onclick="myFunction()" class="btn btn-primary">Cargar gráficos</button>
+  <!--Div that will hold the pie chart-->
+  <div class = "row" >
+    <h3 style = "padding-left: 18px;"> Resumen duración contenedor </h3>
+    <div class = "col-md-12">
+      <div class = "well">
+        <div id="columnchart_values" ></div>
+      </div>
+    </div>
+  </div>
   <% div_counter = 0 %>
   <% alert_counter = 0%>
   <% @container.line.stages.each do |stage| %>
@@ -121,15 +132,6 @@
     <% div_counter += 2 %>
       <% alert_counter += 1%>
   <% end %>
-  <!--Div that will hold the pie chart-->
-  <div class = "row" >
-    <h1> Resumen </h1>
-    <div class = "col-md-12">
-      <div class = "well">
-        <div id="columnchart_values" ></div>
-      </div>
-    </div>
-  </div>
 
   </body>
 </div>
