@@ -16,8 +16,8 @@ module StatesHelper
     subscribers.each do |subscriber|
       if /alert/.match(subscriber.alerts)
         user = User.find(subscriber.user_id)
-        state = State.find(state_id)
-        UserMailer.alert(user, state)
+	alert = AlertSubscribe.where(state_id: state_id).last
+        UserMailer.alert(user, alert).deliver_now
       end
     end
   end
