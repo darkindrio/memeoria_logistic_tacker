@@ -8,7 +8,7 @@ class Ability
       can :manage, Stage
       can :manage, User
       can :manage, Line
-    else
+    elsif user.is? :visitor
       can :read, State
       can :read, Stage
     end

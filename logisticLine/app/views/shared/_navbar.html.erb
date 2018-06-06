@@ -16,7 +16,9 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <% if current_user %>
-        <li class="<%= active_class(line_index_path) %>"><%= link_to('Lista contenedores', line_index_path, method: :get) %></li>
+            <% if can? :edit, Stage %>
+              <li class="<%= active_class(line_index_path) %>"><%= link_to('Lista contenedores', line_index_path, method: :get) %></li>
+            <% end %>
         <li class="<%= active_class(line_data_path) %>"><%= link_to('Estadisticas', line_data_path(id: 2), method: :get) %></li>
             <% end %>
         <% if user_signed_in? %>
