@@ -185,6 +185,12 @@ class ContainersController < ApplicationController
     line.stages << s2
     line.stages << s3
 
+    line.stages.each do |stage|
+      stage.states.each do |state|
+        state.alert = "normal"
+      end
+    end
+
     @container.line = line
     @container.users << current_user
 
