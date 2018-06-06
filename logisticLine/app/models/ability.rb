@@ -8,9 +8,12 @@ class Ability
       can :manage, Stage
       can :manage, User
       can :manage, Line
+      can :manage, Container
     elsif user.is? :visitor
       can :read, State
       can :read, Stage
+      can :read, Container
+      can :read, Line
     end
     #
     #   user ||= User.new # guest user (not logged in)

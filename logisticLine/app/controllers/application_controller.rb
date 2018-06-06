@@ -3,7 +3,11 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
 
   rescue_from CanCan::AccessDenied do | exception |
-    redirect_to line_index_path, alert: exception.message
+    if current_user.is? :statistic
+      redirect_to line_data_path, alert: exception.message
+    else
+      redirect_to line_index_path, alert: exception.message
+    end
   end
 
   def after_sign_in_path_for(resource)

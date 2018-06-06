@@ -15,6 +15,7 @@ class LineController < ApplicationController
   # GET /lines/1
   # GET /lines/1.json
   def show
+    authorize! :read, @line
   end
 
   # GET /lines/new
