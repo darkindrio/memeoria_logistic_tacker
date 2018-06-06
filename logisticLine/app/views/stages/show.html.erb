@@ -83,7 +83,7 @@
                 <div class = "col-md-6"></div>
               </div>
             </div>
-            <%= render :partial => 'shared/subscribe_alerts_modal', :locals => {:container =>container, :user_id => user.id, :modal_counter => modal_counter} %>
+            <%= render :partial => 'shared/subscribe_alerts_modal', :locals => {:container =>container,:stage => @stage ,:user_id => user.id, :modal_counter => modal_counter} %>
             <% modal_counter += 1 %>
           <% end %>
         </div>

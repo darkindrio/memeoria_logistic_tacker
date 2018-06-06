@@ -6,7 +6,7 @@
         <h4 class="modal-title">Notificar cuando</h4>
       </div>
       <div class="modal-body">
-        <%=  form_for container, :url => user_subscribe_url(container_id: container.id, user_id: user_id),method: "get"  do |f| %>
+        <%=  form_for container, :url => user_subscribe_url(container_id: container.id, user_id: user_id, stage_id: @stage.id),method: "get"  do |f| %>
             <div class="form-check" style="margin-top: 30px;">
               <%= check_box_tag 'notifications[]', 'state', current_user.has_alert?('state',container.id, user_id)%>
               <label class="form-check-label" for="exampleCheck1">Pasar estado</label>

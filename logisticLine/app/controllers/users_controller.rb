@@ -48,7 +48,8 @@ class UsersController < ApplicationController
     end
     containerUser = ContainersUser.where(user_id: params[:user_id], container_id: params[:container_id]).first
     containerUser.update_attributes(alerts: subscribed_alerts)
-    redirect_to line_index_path
+    user = User.find(params[:user_id])
+    redirect_to stage_path(params[:stage_id]), notice: 'Las notificaciones del usuario '+user.email+' han sido  actualizado con éxito'
   end
 
   def test
