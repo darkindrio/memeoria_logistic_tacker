@@ -229,11 +229,42 @@ class ContainersController < ApplicationController
 
     ]
 
+    @h_data = []
+    @container = Container.find(params[:container_id])
+    @container.line.stages.each do |stage|
+      h_stage_data = []
+      stage.states.each do |state|
+        h_state_data = []
+        duration_sum = 0
+        duration_count = 0
+        h_f_states = []
+        h_states = State.where(name: state.name)
+        h_states.each do |state|
+          if state.record_states.count == 2
+            duration = ((state.record_states[1].created_at - state.record_states[0].created_at)/3600).round(2)
+            duration_sum = duration_sum + duration
+            duration_count += 1
+          end
+        end
+        if duration_count != 0
+          h_prom = (duration_sum / duration_count).round(2)
+          h_state_data << state.name
+          h_state_data << h_prom
+        else
+          h_state_data << state.name
+          h_state_data << 1
+        end
+        h_stage_data << h_state_data
+      end
+      @h_data << h_stage_data
+    end
+
     @container = Container.find(params[:container_id])
     @data = []
     states_names = []
     states_names << 'Genre'
     stages_duration = []
+    st_counter = 0
     @container.line.stages.each do |stage|
       stage_data = []
       aux_stage_duration = []
@@ -253,9 +284,20 @@ class ContainersController < ApplicationController
         stage_data << state_data
       end
       @data << stage_data
-      @data << @test
+      @data << @h_data[st_counter]
+      st_counter +=1
       stages_duration << aux_stage_duration
     end
+
+
+
+    puts "//////////////////"
+    puts @h_data
+
+
+
+
+
 
 
 
